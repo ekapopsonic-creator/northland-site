@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>โครงการทั้งหมด — Northland Development</title>
+<meta name="description" content="โครงการบ้าน คอนโด ทาวน์โฮม ทั้งหมดของ Northland ในสระบุรีและกรุงเทพมหานคร" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 100 80" fill="currentColor"><path d="M50 10 L20 70 L35 70 L50 35 L65 70 L80 70 Z" opacity="0.95"/><path d="M50 10 L42 28 L58 28 Z" opacity="0.7"/></svg>
+      <span class="brand-name">NORTHLAND</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <ul class="nav-menu">
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="projects.html">โครงการ</a></li>
+      <li><a href="promotions.html">โปรโมชั่น</a></li>
+      <li><a href="about.html">เกี่ยวกับเรา</a></li>
+      <li><a href="progress.html">ความคืบหน้า</a></li>
+      <li><a href="after-sales.html">บริการหลังการขาย</a></li>
+      <li><a href="blog.html">บทความ</a></li>
+      <li><a href="career.html">ร่วมงานกับเรา</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="lang-toggle">TH</button>
+      <a href="contact.html" class="btn btn-primary">ติดต่อเรา</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <p class="page-hero-tag">All Projects</p>
+    <h1 class="page-hero-title">โครงการของเรา</h1>
+    <p class="page-hero-sub">รวม 23 โครงการที่ Northland ภูมิใจนำเสนอ ทั้งในสระบุรีและกรุงเทพมหานคร</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <form class="filter-bar" data-filter-form>
+      <div class="filter-field">
+        <label>ประเภท</label>
+        <select name="type">
+          <option value="">ทุกประเภท</option>
+          <option value="house">บ้านเดี่ยว</option>
+          <option value="townhome">ทาวน์โฮม</option>
+          <option value="condo">คอนโดมิเนียม</option>
+          <option value="commercial">อาคารพาณิชย์</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label>ทำเล</label>
+        <select name="location">
+          <option value="">ทุกทำเล</option>
+          <option value="saraburi">สระบุรี</option>
+          <option value="bangkok">กรุงเทพฯ</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label>สถานะ</label>
+        <select name="status">
+          <option value="">ทุกสถานะ</option>
+          <option value="new">โครงการใหม่</option>
+          <option value="selling">เปิดขาย</option>
+          <option value="ready">พร้อมเข้าอยู่</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label>งบประมาณ</label>
+        <select name="price">
+          <option value="">ทุกระดับ</option>
+          <option value="low">ต่ำกว่า 3 ล้าน</option>
+          <option value="mid">3 – 7 ล้าน</option>
+          <option value="high">7 – 20 ล้าน</option>
+          <option value="luxury">20 ล้านขึ้นไป</option>
+        </select>
+      </div>
+      <button type="reset" class="btn btn-ghost">รีเซ็ต</button>
+    </form>
+
+    <p class="filter-results">พบ <strong data-result-count>15</strong> โครงการที่ตรงกับเงื่อนไข</p>
+
+    <div class="project-grid">
+      <!-- Bangkok Premium -->
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="bangkok" data-status="ready" data-price="luxury">
+        <div class="project-card-img"><span class="project-card-badge">Luxury</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">Pool Villa</div>
+          <h3 class="project-card-name">Attaluck สุขุมวิท</h3>
+          <p class="project-card-location">📍 สุขุมวิท, กรุงเทพฯ</p>
+          <div class="project-card-meta"><div class="project-card-price">68 ลบ.<small>/ ยูนิต</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="condo" data-location="bangkok" data-status="selling" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">เปิดขาย</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">Condominium</div>
+          <h3 class="project-card-name">Beat สุขุมวิท</h3>
+          <p class="project-card-location">📍 สุขุมวิท 50, กรุงเทพฯ</p>
+          <div class="project-card-meta"><div class="project-card-price">3.5 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="condo" data-location="bangkok" data-status="selling" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">เปิดขาย</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">Condominium</div>
+          <h3 class="project-card-name">Beat บางหว้า</h3>
+          <p class="project-card-location">📍 บางหว้า, กรุงเทพฯ</p>
+          <div class="project-card-meta"><div class="project-card-price">2.8 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+
+      <!-- Saraburi Houses -->
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="saraburi" data-status="new" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">โครงการใหม่</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">บ้านเดี่ยว</div>
+          <h3 class="project-card-name">Taravana</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">4.2 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="saraburi" data-status="ready" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าอยู่</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">บ้านเดี่ยว</div>
+          <h3 class="project-card-name">Pundara</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">3.9 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="saraburi" data-status="ready" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าอยู่</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">บ้านเดี่ยว</div>
+          <h3 class="project-card-name">Tarafhasai</h3>
+          <p class="project-card-location">📍 แก่งคอย, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">2.9 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="saraburi" data-status="selling" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">เปิดขาย</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">บ้านเดี่ยว</div>
+          <h3 class="project-card-name">De'Tara</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">3.5 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="saraburi" data-status="selling" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">เปิดขาย</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">บ้านเดี่ยว</div>
+          <h3 class="project-card-name">Banfahsai</h3>
+          <p class="project-card-location">📍 แก่งคอย, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">2.7 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="house" data-location="saraburi" data-status="ready" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าอยู่</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">บ้านเดี่ยว</div>
+          <h3 class="project-card-name">Arna</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">3.2 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+
+      <!-- Saraburi Townhomes -->
+      <a href="project-detail.html" class="project-card" data-project-card data-type="townhome" data-location="saraburi" data-status="ready" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าอยู่</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">ทาวน์โฮม</div>
+          <h3 class="project-card-name">The Pine</h3>
+          <p class="project-card-location">📍 แก่งคอย, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">2.4 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="townhome" data-location="saraburi" data-status="selling" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">เปิดขาย</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">ทาวน์โฮม</div>
+          <h3 class="project-card-name">The Green</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">1.9 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="townhome" data-location="saraburi" data-status="ready" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าอยู่</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">ทาวน์โฮม</div>
+          <h3 class="project-card-name">The Village</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">2.1 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="townhome" data-location="saraburi" data-status="selling" data-price="low">
+        <div class="project-card-img"><span class="project-card-badge">เปิดขาย</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">ทาวน์โฮม</div>
+          <h3 class="project-card-name">The Harmony</h3>
+          <p class="project-card-location">📍 สระบุรี-บายพาส, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">2.3 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+
+      <!-- Commercial -->
+      <a href="project-detail.html" class="project-card" data-project-card data-type="commercial" data-location="saraburi" data-status="ready" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าใช้</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">อาคารพาณิชย์</div>
+          <h3 class="project-card-name">KK Complex</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">5.5 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+      <a href="project-detail.html" class="project-card" data-project-card data-type="commercial" data-location="saraburi" data-status="ready" data-price="mid">
+        <div class="project-card-img"><span class="project-card-badge">พร้อมเข้าใช้</span></div>
+        <div class="project-card-body">
+          <div class="project-card-type">อาคารพาณิชย์</div>
+          <h3 class="project-card-name">The BiZ</h3>
+          <p class="project-card-location">📍 เมืองสระบุรี, สระบุรี</p>
+          <div class="project-card-meta"><div class="project-card-price">4.8 ลบ.<small> เริ่มต้น</small></div><span class="project-card-link">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 80" fill="currentColor" style="color: white;"><path d="M50 10 L20 70 L35 70 L50 35 L65 70 L80 70 Z" opacity="0.95"/><path d="M50 10 L42 28 L58 28 Z" opacity="0.7"/></svg><span class="brand-name">NORTHLAND</span></a>
+        <p>30 ปีแห่งการสร้างที่อยู่อาศัยคุณภาพ ในสระบุรีและกรุงเทพมหานคร ที่เราใส่ใจในทุกรายละเอียด</p>
+      </div>
+      <div class="footer-col"><h4>โครงการ</h4><ul><li><a href="projects.html">สระบุรี</a></li><li><a href="projects.html">กรุงเทพฯ</a></li><li><a href="projects.html">บ้านเดี่ยว</a></li><li><a href="projects.html">คอนโดมิเนียม</a></li><li><a href="projects.html">ทาวน์โฮม</a></li></ul></div>
+      <div class="footer-col"><h4>เกี่ยวกับเรา</h4><ul><li><a href="about.html">เรื่องราว Northland</a></li><li><a href="progress.html">ความคืบหน้า</a></li><li><a href="after-sales.html">บริการหลังการขาย</a></li><li><a href="career.html">ร่วมงานกับเรา</a></li><li><a href="blog.html">บทความ</a></li></ul></div>
+      <div class="footer-col"><h4>ติดต่อ</h4><ul><li>110 ม.8 ถนนแก่งคอย-บ้านนา</li><li>ต.ตาลเดี่ยว อ.แก่งคอย</li><li>สระบุรี 18110</li><li>📞 088-888-8888</li><li>✉ info@northland.co.th</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Northland Development Co., Ltd.</span><span>30 Years Anniversary · 1996–2026</span></div>
+  </div>
+</footer>
+
+<a href="#" class="float-line" aria-label="LINE"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.84 2 10.56c0 4.23 3.55 7.78 8.35 8.46.32.07.76.21.87.48.1.25.07.63.03.88l-.14.85c-.04.25-.19.99.87.54s5.71-3.36 7.78-5.75c1.43-1.57 2.12-3.17 2.12-4.95C20.91 5.84 17.36 2 12 2z"/></svg></a>
+
+<script src="js/main.js"></script>
+</body>
+</html>
