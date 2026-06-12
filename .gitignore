@@ -5,6 +5,8 @@ node_modules
 .env.production
 media
 cv
+*.db
+*.db-journal
 *.log
 .DS_Store
 .vercel

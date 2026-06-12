@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { s3Storage } from '@payloadcms/storage-s3'
@@ -64,11 +65,18 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.DATABASE_URI || '',
-    },
-  }),
+  // โหมด dev บนเครื่อง (ไม่ต้องมี Supabase): ตั้ง USE_LOCAL_SQLITE=true ใน .env
+  // Production ใช้ PostgreSQL (Supabase) ผ่าน DATABASE_URI เสมอ
+  db:
+    process.env.USE_LOCAL_SQLITE === 'true'
+      ? sqliteAdapter({
+          client: { url: 'file:./northland-dev.db' },
+        })
+      : postgresAdapter({
+          pool: {
+            connectionString: process.env.DATABASE_URI || '',
+          },
+        }),
   sharp,
   ...(process.env.RESEND_API_KEY
     ? {
