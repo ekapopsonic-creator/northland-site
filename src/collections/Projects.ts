@@ -63,6 +63,8 @@ export const Projects: CollectionConfig = {
       type: 'select',
       required: true,
       defaultValue: 'under-construction',
+      // ตั้งชื่อ enum เองเพื่อไม่ให้ชนกับ enum ของระบบ draft (_status) บน Postgres
+      enumName: 'enum_projects_sale_status',
       label: { th: 'สถานะโครงการ', en: 'Status' },
       admin: { position: 'sidebar' },
       options: [
