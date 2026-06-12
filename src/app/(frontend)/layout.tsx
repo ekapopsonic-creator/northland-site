@@ -1,14 +1,31 @@
 import React from 'react'
+import type { Metadata } from 'next'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import './styles.css'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Northland Development — ที่เราใส่ใจ',
-  description: '30 ปีแห่งความใส่ใจ — โครงการอสังหาริมทรัพย์คุณภาพในสระบุรีและกรุงเทพมหานคร',
+  description:
+    '30 ปีแห่งการสร้างที่อยู่อาศัยคุณภาพ ในสระบุรีและกรุงเทพมหานคร — โครงการบ้าน คอนโด ทาวน์โฮม จาก Northland Development',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
-      <body style={{ fontFamily: 'Prompt, sans-serif', margin: 0 }}>{children}</body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }

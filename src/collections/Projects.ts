@@ -139,6 +139,17 @@ export const Projects: CollectionConfig = {
       admin: { description: 'เช่น 68 ล้านบาท' },
     },
     {
+      name: 'priceTier',
+      type: 'select',
+      label: { th: 'ช่วงราคา (ใช้กับตัวกรองหน้าเว็บ)', en: 'Price tier' },
+      options: [
+        { label: { th: 'ต่ำกว่า 3 ล้าน', en: 'Under 3M' }, value: 'low' },
+        { label: { th: '3 – 7 ล้าน', en: '3–7M' }, value: 'mid' },
+        { label: { th: '7 – 20 ล้าน', en: '7–20M' }, value: 'high' },
+        { label: { th: '20 ล้านขึ้นไป', en: '20M+' }, value: 'luxury' },
+      ],
+    },
+    {
       name: 'promoNote',
       type: 'text',
       label: { th: 'ข้อความโปรโมชั่นสั้น', en: 'Promo note' },

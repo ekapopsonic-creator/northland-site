@@ -213,6 +213,7 @@ export interface Project {
    * เช่น 68 ล้านบาท
    */
   startingPrice?: string | null;
+  priceTier?: ('low' | 'mid' | 'high' | 'luxury') | null;
   /**
    * เช่น ผ่อนดาวน์ 0% สูงสุด 24 เดือน · รับสิทธิ์โอนฟรี
    */
@@ -674,6 +675,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         projectValue?: T;
       };
   startingPrice?: T;
+  priceTier?: T;
   promoNote?: T;
   coverImage?: T;
   gallery?:
