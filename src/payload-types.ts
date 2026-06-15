@@ -67,6 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    pages: Page;
     leads: Lead;
     projects: Project;
     promotions: Promotion;
@@ -84,6 +85,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    pages: PagesSelect<false> | PagesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     promotions: PromotionsSelect<false> | PromotionsSelect<true>;
@@ -135,6 +137,281 @@ export interface UserAuthOperations {
   unlock: {
     email: string;
     password: string;
+  };
+}
+/**
+ * Build pages with blocks. Homepage uses slug = home
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * home = หน้าแรก · อื่นๆ เช่น about → northland.co.th/about
+   */
+  slug: string;
+  layout?:
+    | (
+        | {
+            eyebrow?: string | null;
+            title: string;
+            tagline?: string | null;
+            lead?: string | null;
+            image?: (number | null) | Media;
+            buttons?:
+              | {
+                  label: string;
+                  /**
+                   * เช่น /projects หรือ /contact
+                   */
+                  url: string;
+                  style?: ('primary' | 'light' | 'ghost' | 'outline-white') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showSearch?: boolean | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            items?:
+              | {
+                  /**
+                   * เช่น 30+, 3,209, 8,110
+                   */
+                  number: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            subtitle?: string | null;
+            source?: ('featured' | 'latest') | null;
+            count?: number | null;
+            /**
+             * เช่น ดูโครงการทั้งหมด →
+             */
+            ctaLabel?: string | null;
+            ctaUrl?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'featuredProjects';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            subtitle?: string | null;
+            columns?: ('2' | '3' | '4') | null;
+            items?:
+              | {
+                  /**
+                   * เช่น 🏆 🏗️ 📍 💎
+                   */
+                  icon?: string | null;
+                  title: string;
+                  text?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'features';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            content?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            align?: ('left' | 'center') | null;
+            width?: ('narrow' | 'normal') | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            image: number | Media;
+            imageSide?: ('left' | 'right') | null;
+            eyebrow?: string | null;
+            heading?: string | null;
+            content?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            buttons?:
+              | {
+                  label: string;
+                  /**
+                   * เช่น /projects หรือ /contact
+                   */
+                  url: string;
+                  style?: ('primary' | 'light' | 'ghost' | 'outline-white') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageText';
+          }
+        | {
+            heading?: string | null;
+            columns?: ('2' | '3' | '4') | null;
+            images?:
+              | {
+                  image: number | Media;
+                  caption?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            subtitle?: string | null;
+            items?:
+              | {
+                  year: string;
+                  title: string;
+                  text?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
+          }
+        | {
+            title: string;
+            text?: string | null;
+            buttons?:
+              | {
+                  label: string;
+                  /**
+                   * เช่น /projects หรือ /contact
+                   */
+                  url: string;
+                  style?: ('primary' | 'light' | 'ghost' | 'outline-white') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            size?: ('sm' | 'md' | 'lg') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spacer';
+          }
+      )[]
+    | null;
+  seo?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Image library — 3 sizes generated automatically
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    hero?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
 }
 /**
@@ -268,53 +545,6 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * Image library — 3 sizes generated automatically
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    hero?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * Promotions auto-hide from the website after the end date
@@ -551,6 +781,10 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
         relationTo: 'leads';
         value: number | Lead;
       } | null)
@@ -631,6 +865,194 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              tagline?: T;
+              lead?: T;
+              image?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    style?: T;
+                    id?: T;
+                  };
+              showSearch?: T;
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    number?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        featuredProjects?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              subtitle?: T;
+              source?: T;
+              count?: T;
+              ctaLabel?: T;
+              ctaUrl?: T;
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        features?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              subtitle?: T;
+              columns?: T;
+              items?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              content?: T;
+              align?: T;
+              width?: T;
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageText?:
+          | T
+          | {
+              image?: T;
+              imageSide?: T;
+              eyebrow?: T;
+              heading?: T;
+              content?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    style?: T;
+                    id?: T;
+                  };
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        timeline?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              subtitle?: T;
+              items?:
+                | T
+                | {
+                    year?: T;
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    style?: T;
+                    id?: T;
+                  };
+              background?: T;
+              paddingY?: T;
+              id?: T;
+              blockName?: T;
+            };
+        spacer?:
+          | T
+          | {
+              size?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -956,6 +1378,8 @@ export interface SiteSetting {
    * รหัสสี HEX เช่น #03A1D1
    */
   brandColorDark?: string | null;
+  bodyFont?: ('prompt' | 'sarabun' | 'kanit' | 'noto-thai' | 'ibm-thai' | 'bai-jamjuree') | null;
+  displayFont?: ('cormorant' | 'playfair' | 'prompt-display' | 'kanit-display' | 'noto-serif-thai') | null;
   phone?: string | null;
   email?: string | null;
   lineId?: string | null;
@@ -976,6 +1400,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
   brandColor?: T;
   brandColorDark?: T;
+  bodyFont?: T;
+  displayFont?: T;
   phone?: T;
   email?: T;
   lineId?: T;

@@ -21,6 +21,7 @@ import { Posts } from './collections/Posts'
 import { ProgressUpdates } from './collections/ProgressUpdates'
 import { Jobs } from './collections/Jobs'
 import { JobApplications } from './collections/JobApplications'
+import { Pages } from './collections/Pages'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -44,6 +45,7 @@ export default buildConfig({
     dateFormat: 'd MMM yyyy HH:mm',
   },
   collections: [
+    Pages,
     Leads,
     Projects,
     Promotions,

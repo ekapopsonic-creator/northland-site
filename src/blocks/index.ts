@@ -1,0 +1,296 @@
+import type { Block } from 'payload'
+import { appearanceFields } from './shared'
+
+const heading = (thLabel: string): any => ({
+  name: 'heading',
+  type: 'text',
+  localized: true,
+  label: { th: thLabel, en: 'Heading' },
+})
+
+const eyebrow: any = {
+  name: 'eyebrow',
+  type: 'text',
+  localized: true,
+  label: { th: 'ป้ายเล็กด้านบน (eyebrow)', en: 'Eyebrow' },
+}
+
+const subtitle: any = {
+  name: 'subtitle',
+  type: 'textarea',
+  localized: true,
+  label: { th: 'คำอธิบายใต้หัวข้อ', en: 'Subtitle' },
+}
+
+const buttonsField: any = {
+  name: 'buttons',
+  type: 'array',
+  maxRows: 2,
+  label: { th: 'ปุ่ม', en: 'Buttons' },
+  labels: { singular: { th: 'ปุ่ม', en: 'Button' }, plural: { th: 'ปุ่ม', en: 'Buttons' } },
+  fields: [
+    { name: 'label', type: 'text', required: true, localized: true, label: { th: 'ข้อความปุ่ม', en: 'Label' } },
+    { name: 'url', type: 'text', required: true, label: { th: 'ลิงก์', en: 'URL' }, admin: { description: 'เช่น /projects หรือ /contact' } },
+    {
+      name: 'style',
+      type: 'select',
+      defaultValue: 'primary',
+      label: { th: 'สไตล์ปุ่ม', en: 'Style' },
+      options: [
+        { label: { th: 'ทึบ (หลัก)', en: 'Primary' }, value: 'primary' },
+        { label: { th: 'ขาว', en: 'Light' }, value: 'light' },
+        { label: { th: 'โปร่ง', en: 'Ghost' }, value: 'ghost' },
+        { label: { th: 'ขอบขาว', en: 'Outline white' }, value: 'outline-white' },
+      ],
+    },
+  ],
+}
+
+export const HeroBlock: Block = {
+  slug: 'hero',
+  labels: { singular: { th: 'Hero (แบนเนอร์ใหญ่)', en: 'Hero' }, plural: { th: 'Hero', en: 'Heroes' } },
+  fields: [
+    eyebrow,
+    { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อใหญ่', en: 'Title' } },
+    { name: 'tagline', type: 'text', localized: true, label: { th: 'ข้อความรอง', en: 'Tagline' } },
+    { name: 'lead', type: 'textarea', localized: true, label: { th: 'ย่อหน้าแนะนำ', en: 'Lead text' } },
+    { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูปพื้นหลัง', en: 'Background image' } },
+    buttonsField,
+    { name: 'showSearch', type: 'checkbox', defaultValue: false, label: { th: 'แสดงกล่องค้นหาโครงการ', en: 'Show project search' } },
+    appearanceFields,
+  ],
+}
+
+export const StatsBlock: Block = {
+  slug: 'stats',
+  labels: { singular: { th: 'สถิติ (ตัวเลข)', en: 'Stats' }, plural: { th: 'สถิติ', en: 'Stats' } },
+  fields: [
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      maxRows: 6,
+      label: { th: 'รายการตัวเลข', en: 'Stat items' },
+      labels: { singular: { th: 'ตัวเลข', en: 'Stat' }, plural: { th: 'ตัวเลข', en: 'Stats' } },
+      fields: [
+        { name: 'number', type: 'text', required: true, label: { th: 'ตัวเลข', en: 'Number' }, admin: { description: 'เช่น 30+, 3,209, 8,110' } },
+        { name: 'label', type: 'text', required: true, localized: true, label: { th: 'คำอธิบาย', en: 'Label' } },
+      ],
+    },
+    appearanceFields,
+  ],
+}
+
+export const FeaturedProjectsBlock: Block = {
+  slug: 'featuredProjects',
+  labels: { singular: { th: 'โครงการเด่น', en: 'Featured projects' }, plural: { th: 'โครงการเด่น', en: 'Featured projects' } },
+  fields: [
+    eyebrow,
+    heading('หัวข้อ'),
+    subtitle,
+    {
+      name: 'source',
+      type: 'select',
+      defaultValue: 'featured',
+      label: { th: 'เลือกโครงการจาก', en: 'Source' },
+      options: [
+        { label: { th: 'โครงการที่ติ๊ก "แนะนำ"', en: 'Featured' }, value: 'featured' },
+        { label: { th: 'โครงการล่าสุด', en: 'Latest' }, value: 'latest' },
+      ],
+    },
+    { name: 'count', type: 'number', defaultValue: 6, label: { th: 'จำนวนที่แสดง', en: 'Count' } },
+    {
+      name: 'ctaLabel',
+      type: 'text',
+      localized: true,
+      label: { th: 'ข้อความปุ่มท้าย section', en: 'CTA label' },
+      admin: { description: 'เช่น ดูโครงการทั้งหมด →' },
+    },
+    { name: 'ctaUrl', type: 'text', defaultValue: '/projects', label: { th: 'ลิงก์ปุ่มท้าย', en: 'CTA URL' } },
+    appearanceFields,
+  ],
+}
+
+export const FeaturesBlock: Block = {
+  slug: 'features',
+  labels: { singular: { th: 'จุดเด่น (ไอคอน+ข้อความ)', en: 'Features' }, plural: { th: 'จุดเด่น', en: 'Features' } },
+  fields: [
+    eyebrow,
+    heading('หัวข้อ'),
+    subtitle,
+    {
+      name: 'columns',
+      type: 'select',
+      defaultValue: '3',
+      label: { th: 'จำนวนคอลัมน์', en: 'Columns' },
+      options: [
+        { label: '2', value: '2' },
+        { label: '3', value: '3' },
+        { label: '4', value: '4' },
+      ],
+    },
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      label: { th: 'รายการจุดเด่น', en: 'Items' },
+      labels: { singular: { th: 'จุดเด่น', en: 'Item' }, plural: { th: 'จุดเด่น', en: 'Items' } },
+      fields: [
+        { name: 'icon', type: 'text', label: { th: 'ไอคอน (อีโมจิ)', en: 'Icon' }, admin: { description: 'เช่น 🏆 🏗️ 📍 💎' } },
+        { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อ', en: 'Title' } },
+        { name: 'text', type: 'textarea', localized: true, label: { th: 'รายละเอียด', en: 'Text' } },
+      ],
+    },
+    appearanceFields,
+  ],
+}
+
+export const RichTextBlock: Block = {
+  slug: 'richText',
+  labels: { singular: { th: 'ข้อความ (Rich Text)', en: 'Rich text' }, plural: { th: 'ข้อความ', en: 'Rich text' } },
+  fields: [
+    eyebrow,
+    heading('หัวข้อ (เว้นว่างได้)'),
+    { name: 'content', type: 'richText', localized: true, label: { th: 'เนื้อหา', en: 'Content' } },
+    {
+      name: 'align',
+      type: 'select',
+      defaultValue: 'left',
+      label: { th: 'จัดข้อความ', en: 'Align' },
+      options: [
+        { label: { th: 'ชิดซ้าย', en: 'Left' }, value: 'left' },
+        { label: { th: 'กึ่งกลาง', en: 'Center' }, value: 'center' },
+      ],
+    },
+    {
+      name: 'width',
+      type: 'select',
+      defaultValue: 'normal',
+      label: { th: 'ความกว้างเนื้อหา', en: 'Width' },
+      options: [
+        { label: { th: 'แคบ (อ่านง่าย)', en: 'Narrow' }, value: 'narrow' },
+        { label: { th: 'ปกติ', en: 'Normal' }, value: 'normal' },
+      ],
+    },
+    appearanceFields,
+  ],
+}
+
+export const ImageTextBlock: Block = {
+  slug: 'imageText',
+  labels: { singular: { th: 'รูป + ข้อความ', en: 'Image + Text' }, plural: { th: 'รูป + ข้อความ', en: 'Image + Text' } },
+  fields: [
+    { name: 'image', type: 'upload', relationTo: 'media', required: true, label: { th: 'รูป', en: 'Image' } },
+    {
+      name: 'imageSide',
+      type: 'select',
+      defaultValue: 'left',
+      label: { th: 'วางรูปฝั่ง', en: 'Image side' },
+      options: [
+        { label: { th: 'ซ้าย', en: 'Left' }, value: 'left' },
+        { label: { th: 'ขวา', en: 'Right' }, value: 'right' },
+      ],
+    },
+    eyebrow,
+    heading('หัวข้อ'),
+    { name: 'content', type: 'richText', localized: true, label: { th: 'เนื้อหา', en: 'Content' } },
+    buttonsField,
+    appearanceFields,
+  ],
+}
+
+export const GalleryBlock: Block = {
+  slug: 'gallery',
+  labels: { singular: { th: 'แกลเลอรีรูป', en: 'Gallery' }, plural: { th: 'แกลเลอรี', en: 'Galleries' } },
+  fields: [
+    heading('หัวข้อ (เว้นว่างได้)'),
+    {
+      name: 'columns',
+      type: 'select',
+      defaultValue: '3',
+      label: { th: 'จำนวนคอลัมน์', en: 'Columns' },
+      options: [
+        { label: '2', value: '2' },
+        { label: '3', value: '3' },
+        { label: '4', value: '4' },
+      ],
+    },
+    {
+      name: 'images',
+      type: 'array',
+      minRows: 1,
+      label: { th: 'รูปภาพ', en: 'Images' },
+      labels: { singular: { th: 'รูป', en: 'Image' }, plural: { th: 'รูป', en: 'Images' } },
+      fields: [
+        { name: 'image', type: 'upload', relationTo: 'media', required: true, label: { th: 'รูป', en: 'Image' } },
+        { name: 'caption', type: 'text', label: { th: 'คำบรรยาย', en: 'Caption' } },
+      ],
+    },
+    appearanceFields,
+  ],
+}
+
+export const TimelineBlock: Block = {
+  slug: 'timeline',
+  labels: { singular: { th: 'ไทม์ไลน์', en: 'Timeline' }, plural: { th: 'ไทม์ไลน์', en: 'Timelines' } },
+  fields: [
+    eyebrow,
+    heading('หัวข้อ'),
+    subtitle,
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      label: { th: 'รายการ', en: 'Items' },
+      labels: { singular: { th: 'ช่วงเวลา', en: 'Milestone' }, plural: { th: 'ช่วงเวลา', en: 'Milestones' } },
+      fields: [
+        { name: 'year', type: 'text', required: true, label: { th: 'ปี', en: 'Year' } },
+        { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อ', en: 'Title' } },
+        { name: 'text', type: 'textarea', localized: true, label: { th: 'รายละเอียด', en: 'Text' } },
+      ],
+    },
+    appearanceFields,
+  ],
+}
+
+export const CTABlock: Block = {
+  slug: 'cta',
+  labels: { singular: { th: 'แถบเชิญชวน (CTA)', en: 'CTA band' }, plural: { th: 'CTA', en: 'CTAs' } },
+  fields: [
+    { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อ', en: 'Title' } },
+    { name: 'text', type: 'textarea', localized: true, label: { th: 'ข้อความ', en: 'Text' } },
+    buttonsField,
+    appearanceFields,
+  ],
+}
+
+export const SpacerBlock: Block = {
+  slug: 'spacer',
+  labels: { singular: { th: 'เว้นระยะ', en: 'Spacer' }, plural: { th: 'เว้นระยะ', en: 'Spacers' } },
+  fields: [
+    {
+      name: 'size',
+      type: 'select',
+      defaultValue: 'md',
+      label: { th: 'ขนาดช่องว่าง', en: 'Size' },
+      options: [
+        { label: { th: 'เล็ก', en: 'Small' }, value: 'sm' },
+        { label: { th: 'กลาง', en: 'Medium' }, value: 'md' },
+        { label: { th: 'ใหญ่', en: 'Large' }, value: 'lg' },
+      ],
+    },
+  ],
+}
+
+export const allBlocks: Block[] = [
+  HeroBlock,
+  StatsBlock,
+  FeaturedProjectsBlock,
+  FeaturesBlock,
+  RichTextBlock,
+  ImageTextBlock,
+  GalleryBlock,
+  TimelineBlock,
+  CTABlock,
+  SpacerBlock,
+]

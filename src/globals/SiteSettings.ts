@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 import { anyone, isAdminOrEditor } from '../access'
+import { bodyFontOptions, displayFontOptions } from '../lib/fonts'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -42,6 +43,25 @@ export const SiteSettings: GlobalConfig = {
               defaultValue: '#03A1D1',
               label: { th: 'สีหลักเข้ม (ปุ่ม hover / accent)', en: 'Brand color (dark)' },
               admin: { description: 'รหัสสี HEX เช่น #03A1D1' },
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'bodyFont',
+                  type: 'select',
+                  defaultValue: 'prompt',
+                  label: { th: 'ฟอนต์เนื้อหา (Body)', en: 'Body font' },
+                  options: bodyFontOptions,
+                },
+                {
+                  name: 'displayFont',
+                  type: 'select',
+                  defaultValue: 'cormorant',
+                  label: { th: 'ฟอนต์หัวข้อ (Display)', en: 'Display font' },
+                  options: displayFontOptions,
+                },
+              ],
             },
           ],
         },
