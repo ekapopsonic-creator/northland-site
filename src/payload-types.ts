@@ -103,8 +103,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('th' | 'en') | ('th' | 'en')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+  };
   locale: 'th' | 'en';
   widgets: {
     collections: CollectionsWidget;
@@ -931,6 +935,56 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Logo, brand color, and contact info — applies to the website on save
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * เว้นว่าง = ใช้โลโก้ NORTHLAND ตัวอักษรเริ่มต้น
+   */
+  logo?: (number | null) | Media;
+  /**
+   * รหัสสี HEX เช่น #00AEEF (สีฟ้า North Sea ของ Northland)
+   */
+  brandColor?: string | null;
+  /**
+   * รหัสสี HEX เช่น #03A1D1
+   */
+  brandColorDark?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  lineId?: string | null;
+  /**
+   * เช่น https://lin.ee/xxxx — เว้นว่างได้
+   */
+  lineUrl?: string | null;
+  address?: string | null;
+  footerTagline?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  logo?: T;
+  brandColor?: T;
+  brandColorDark?: T;
+  phone?: T;
+  email?: T;
+  lineId?: T;
+  lineUrl?: T;
+  address?: T;
+  footerTagline?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

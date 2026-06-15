@@ -21,6 +21,7 @@ import { Posts } from './collections/Posts'
 import { ProgressUpdates } from './collections/ProgressUpdates'
 import { Jobs } from './collections/Jobs'
 import { JobApplications } from './collections/JobApplications'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,6 +34,12 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: ' — Northland Admin',
+    },
+    components: {
+      graphics: {
+        Logo: '/components/admin/Logo#Logo',
+        Icon: '/components/admin/Icon#Icon',
+      },
     },
     dateFormat: 'd MMM yyyy HH:mm',
   },
@@ -48,6 +55,7 @@ export default buildConfig({
     Media,
     Users,
   ],
+  globals: [SiteSettings],
   editor: lexicalEditor(),
   i18n: {
     fallbackLanguage: 'th',

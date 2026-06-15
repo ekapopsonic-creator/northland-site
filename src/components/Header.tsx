@@ -16,7 +16,7 @@ const menu = [
   { href: '/career', label: 'ร่วมงานกับเรา' },
 ]
 
-export function Header() {
+export function Header({ logoUrl }: { logoUrl?: string | null }) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -42,8 +42,14 @@ export function Header() {
     >
       <div className="container nav">
         <Link href="/" className="brand">
-          <BrandMark />
-          <span className="brand-name">NORTHLAND</span>
+          {logoUrl ? (
+            <img src={logoUrl} alt="NORTHLAND" style={{ height: 40, width: 'auto' }} />
+          ) : (
+            <>
+              <BrandMark />
+              <span className="brand-name">NORTHLAND</span>
+            </>
+          )}
         </Link>
         <button
           className="nav-toggle"

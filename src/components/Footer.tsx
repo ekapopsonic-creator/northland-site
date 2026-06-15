@@ -2,7 +2,20 @@ import React from 'react'
 import Link from 'next/link'
 import { BrandMark } from './BrandMark'
 
-export function Footer() {
+export function Footer({
+  logoUrl,
+  tagline,
+  phone,
+  email,
+  address,
+}: {
+  logoUrl?: string | null
+  tagline?: string
+  phone?: string
+  email?: string
+  address?: string
+}) {
+  const addressLines = (address || '110 ม.8 ถนนแก่งคอย-บ้านนา\nต.ตาลเดี่ยว อ.แก่งคอย\nสระบุรี 18110').split('\n')
   return (
     <>
       <footer className="site-footer">
@@ -10,10 +23,16 @@ export function Footer() {
           <div className="footer-grid">
             <div className="footer-brand">
               <Link href="/" className="brand">
-                <BrandMark white />
-                <span className="brand-name">NORTHLAND</span>
+                {logoUrl ? (
+                  <img src={logoUrl} alt="NORTHLAND" style={{ height: 40, width: 'auto' }} />
+                ) : (
+                  <>
+                    <BrandMark white />
+                    <span className="brand-name">NORTHLAND</span>
+                  </>
+                )}
               </Link>
-              <p>30 ปีแห่งการสร้างที่อยู่อาศัยคุณภาพ ในสระบุรีและกรุงเทพมหานคร ที่เราใส่ใจในทุกรายละเอียด</p>
+              <p>{tagline || '30 ปีแห่งการสร้างที่อยู่อาศัยคุณภาพ ในสระบุรีและกรุงเทพมหานคร ที่เราใส่ใจในทุกรายละเอียด'}</p>
             </div>
             <div className="footer-col">
               <h4>โครงการ</h4>
@@ -38,11 +57,11 @@ export function Footer() {
             <div className="footer-col">
               <h4>ติดต่อ</h4>
               <ul>
-                <li>110 ม.8 ถนนแก่งคอย-บ้านนา</li>
-                <li>ต.ตาลเดี่ยว อ.แก่งคอย</li>
-                <li>สระบุรี 18110</li>
-                <li>📞 088-888-8888</li>
-                <li>✉ info@northland.co.th</li>
+                {addressLines.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+                <li>📞 {phone || '088-888-8888'}</li>
+                <li>✉ {email || 'info@northland.co.th'}</li>
               </ul>
             </div>
           </div>

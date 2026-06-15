@@ -111,6 +111,11 @@ export async function getProgressUpdates() {
   return docs
 }
 
+export async function getSiteSettings() {
+  const payload = await getPayloadClient()
+  return payload.findGlobal({ slug: 'site-settings', depth: 1 })
+}
+
 export async function getActiveJobs() {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({

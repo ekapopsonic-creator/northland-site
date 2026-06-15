@@ -25,6 +25,10 @@ const run = async () => {
     },
   })
   payload.logger.info(`[create-admin] สร้าง admin: ${email} ✓`)
+
+  // ตั้งค่าเริ่มต้นของ Site Settings (ใช้ defaultValue ในฟิลด์)
+  await payload.updateGlobal({ slug: 'site-settings', data: {} })
+  payload.logger.info('[create-admin] ตั้งค่าเว็บไซต์เริ่มต้นแล้ว ✓')
   process.exit(0)
 }
 
