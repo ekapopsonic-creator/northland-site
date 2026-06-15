@@ -66,9 +66,9 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   // โหมด dev บนเครื่อง (ไม่ต้องมี Supabase): ตั้ง USE_LOCAL_SQLITE=true ใน .env
-  // Production ใช้ PostgreSQL (Supabase) ผ่าน DATABASE_URI เสมอ
+  // Production (NODE_ENV=production เช่นบน Vercel) ใช้ PostgreSQL เสมอ — กัน SQLite หลุดขึ้น production
   db:
-    process.env.USE_LOCAL_SQLITE === 'true'
+    process.env.USE_LOCAL_SQLITE === 'true' && process.env.NODE_ENV !== 'production'
       ? sqliteAdapter({
           client: { url: 'file:./northland-dev.db' },
         })

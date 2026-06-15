@@ -1,0 +1,12 @@
+# ห้ามอัปไฟล์ env ของ dev ขึ้น Vercel build — ให้ใช้ค่าจาก Vercel dashboard เท่านั้น
+.env
+.env.local
+.env.*.local
+.env.development
+# ของ dev บนเครื่อง
+*.db
+*.db-journal
+northland-dev.db
+dev.log
+.next
+node_modules
