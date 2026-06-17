@@ -38,6 +38,48 @@ export async function getFeaturedProjects() {
   return fallback.docs
 }
 
+export async function getLatestProjects(limit = 6) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'projects',
+    where: { _status: { equals: 'published' } },
+    sort: '-createdAt',
+    limit,
+    depth: 1,
+  })
+  return docs
+}
+
+export async function getProjectsByIds(ids: number[]) {
+  if (!ids.length) return []
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'projects',
+    where: { and: [{ id: { in: ids } }, { _status: { equals: 'published' } }] },
+    limit: 100,
+    depth: 1,
+  })
+  // คงลำดับตามที่เลือกในหลังบ้าน
+  const map = new Map(docs.map((d) => [d.id, d]))
+  return ids.map((id) => map.get(id)).filter(Boolean) as typeof docs
+}
+
+// เติมรายการโครงการให้แต่ละบล็อก "โครงการเด่น" ตาม source ที่เลือก
+export async function resolveBlockProjects(blocks: any[]): Promise<any[]> {
+  if (!blocks?.length) return blocks || []
+  return Promise.all(
+    blocks.map(async (b) => {
+      if (b?.blockType !== 'featuredProjects') return b
+      if (b.source === 'manual') {
+        const ids = (b.projects || []).map((p: any) => (typeof p === 'object' ? p.id : p))
+        return { ...b, _projects: await getProjectsByIds(ids) }
+      }
+      if (b.source === 'latest') return { ...b, _projects: await getLatestProjects(b.count || 6) }
+      return { ...b, _projects: await getFeaturedProjects() }
+    }),
+  )
+}
+
 export async function getProjectBySlug(slug: string) {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({

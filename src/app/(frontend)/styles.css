@@ -417,6 +417,9 @@ button { font-family: inherit; cursor: pointer; }
   top: 0; left: 60%; bottom: 0; right: 0;
   background: linear-gradient(225deg, transparent 50%, rgba(255,255,255,0.18) 50%) top right / 100% 100% no-repeat;
 }
+/* เมื่อมีรูปจริง — ซ่อนลายตกแต่งและพื้นหลังฟ้า placeholder */
+.project-card-img.has-image { background: none; }
+.project-card-img.has-image::after { display: none; }
 .project-card-badge {
   position: absolute;
   top: 1rem; left: 1rem;
@@ -601,6 +604,8 @@ button { font-family: inherit; cursor: pointer; }
   top: 0; left: 50%; bottom: 0; right: 0;
   background: linear-gradient(225deg, transparent 50%, rgba(255,255,255,0.2) 50%) top right / 100% 100% no-repeat;
 }
+.detail-gallery.has-image { background: none; }
+.detail-gallery.has-image::after { display: none; }
 
 .detail-grid {
   display: grid;

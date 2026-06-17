@@ -1,7 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getFeaturedProjects, getPageBySlug } from '@/lib/queries'
+import { getFeaturedProjects, getPageBySlug, resolveBlockProjects } from '@/lib/queries'
 import { BlockRenderer } from '@/components/blocks/BlockRenderer'
 
 export const revalidate = 60
@@ -26,10 +26,11 @@ export default async function CustomPage({ params }: { params: Promise<{ slug: s
   if (slug === 'home') notFound() // หน้าแรกอยู่ที่ /
   const [page, featured] = await Promise.all([getPageBySlug(slug), getFeaturedProjects()])
   if (!page) notFound()
+  const blocks = await resolveBlockProjects((page.layout as any[]) || [])
 
   return (
     <main>
-      <BlockRenderer blocks={(page.layout as any[]) || []} featuredProjects={featured} />
+      <BlockRenderer blocks={blocks} featuredProjects={featured} />
     </main>
   )
 }

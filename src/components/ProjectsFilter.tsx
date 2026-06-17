@@ -112,7 +112,7 @@ export function ProjectsFilter({
         {shown.map((p) => (
           <Link key={p.slug} href={`/projects/${p.slug}`} className="project-card">
             <div
-              className="project-card-img"
+              className={`project-card-img${p.coverUrl ? ' has-image' : ''}`}
               style={
                 p.coverUrl
                   ? {

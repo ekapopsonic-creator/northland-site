@@ -94,11 +94,29 @@ export const FeaturedProjectsBlock: Block = {
       defaultValue: 'featured',
       label: { th: 'เลือกโครงการจาก', en: 'Source' },
       options: [
+        { label: { th: 'เลือกเอง (ระบุโครงการ)', en: 'Manual select' }, value: 'manual' },
         { label: { th: 'โครงการที่ติ๊ก "แนะนำ"', en: 'Featured' }, value: 'featured' },
         { label: { th: 'โครงการล่าสุด', en: 'Latest' }, value: 'latest' },
       ],
     },
-    { name: 'count', type: 'number', defaultValue: 6, label: { th: 'จำนวนที่แสดง', en: 'Count' } },
+    {
+      name: 'projects',
+      type: 'relationship',
+      relationTo: 'projects',
+      hasMany: true,
+      label: { th: 'เลือกโครงการที่จะโชว์ (ลากจัดลำดับได้)', en: 'Select projects' },
+      admin: {
+        description: 'ค้นหาแล้วเลือกโครงการที่ต้องการ — เรียงลำดับตามที่เลือก',
+        condition: (_, sib) => sib?.source === 'manual',
+      },
+    },
+    {
+      name: 'count',
+      type: 'number',
+      defaultValue: 6,
+      label: { th: 'จำนวนที่แสดง (โหมดล่าสุด/แนะนำ)', en: 'Count' },
+      admin: { condition: (_, sib) => sib?.source !== 'manual' },
+    },
     {
       name: 'ctaLabel',
       type: 'text',

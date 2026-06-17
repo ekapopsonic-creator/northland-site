@@ -90,7 +90,8 @@ export function BlockRenderer({
               </section>
             )
 
-          case 'featuredProjects':
+          case 'featuredProjects': {
+            const list: Project[] = block._projects || featuredProjects
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
@@ -98,7 +99,7 @@ export function BlockRenderer({
                   {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
                   {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
                   <div className="project-grid">
-                    {featuredProjects.slice(0, block.count || 6).map((p) => (
+                    {list.map((p) => (
                       <ProjectCard key={p.id} project={p} />
                     ))}
                   </div>
@@ -112,6 +113,7 @@ export function BlockRenderer({
                 </div>
               </section>
             )
+          }
 
           case 'features': {
             const cols = Number(block.columns || 3)

@@ -52,7 +52,7 @@ export default async function ProgressPage() {
                 return (
                   <div className="progress-card" key={u.id}>
                     <div
-                      className="project-card-img"
+                      className={`project-card-img${firstPhoto ? ' has-image' : ''}`}
                       style={
                         firstPhoto
                           ? { backgroundImage: `url(${firstPhoto})`, backgroundSize: 'cover', backgroundPosition: 'center' }

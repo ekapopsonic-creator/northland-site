@@ -8,7 +8,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link href={`/projects/${project.slug}`} className="project-card">
       <div
-        className="project-card-img"
+        className={`project-card-img${img ? ' has-image' : ''}`}
         style={
           img
             ? { backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }

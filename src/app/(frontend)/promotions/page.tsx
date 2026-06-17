@@ -39,7 +39,7 @@ export default async function PromotionsPage() {
                 return (
                   <div className="project-card" key={promo.id}>
                     <div
-                      className="project-card-img"
+                      className={`project-card-img${img ? ' has-image' : ''}`}
                       style={
                         img
                           ? { backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }

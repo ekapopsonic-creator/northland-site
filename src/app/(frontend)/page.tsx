@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { getFeaturedProjects, getPageBySlug } from '@/lib/queries'
+import { getFeaturedProjects, getPageBySlug, resolveBlockProjects } from '@/lib/queries'
 import { ProjectCard } from '@/components/ProjectCard'
 import { HeroSearch } from '@/components/HeroSearch'
 import { BlockRenderer } from '@/components/blocks/BlockRenderer'
@@ -12,9 +12,10 @@ export default async function HomePage() {
 
   // ถ้าทีมจัด layout หน้าแรกในหลังบ้านแล้ว → ใช้บล็อก
   if (page?.layout?.length) {
+    const blocks = await resolveBlockProjects(page.layout as any[])
     return (
       <main>
-        <BlockRenderer blocks={page.layout as any[]} featuredProjects={featured} />
+        <BlockRenderer blocks={blocks} featuredProjects={featured} />
       </main>
     )
   }

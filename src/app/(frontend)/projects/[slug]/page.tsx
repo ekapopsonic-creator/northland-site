@@ -49,7 +49,7 @@ export default async function ProjectDetailPage({
       <section className="section" style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div
-            className="detail-gallery"
+            className={`detail-gallery${cover ? ' has-image' : ''}`}
             style={
               cover
                 ? {

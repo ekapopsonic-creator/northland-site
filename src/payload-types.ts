@@ -199,7 +199,11 @@ export interface Page {
             eyebrow?: string | null;
             heading?: string | null;
             subtitle?: string | null;
-            source?: ('featured' | 'latest') | null;
+            source?: ('manual' | 'featured' | 'latest') | null;
+            /**
+             * ค้นหาแล้วเลือกโครงการที่ต้องการ — เรียงลำดับตามที่เลือก
+             */
+            projects?: (number | Project)[] | null;
             count?: number | null;
             /**
              * เช่น ดูโครงการทั้งหมด →
@@ -415,26 +419,6 @@ export interface Media {
   };
 }
 /**
- * Leads from the website contact form — newest first
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "leads".
- */
-export interface Lead {
-  id: number;
-  name: string;
-  phone: string;
-  email?: string | null;
-  interestProject?: (number | null) | Project;
-  interestText?: string | null;
-  budget?: ('under-3m' | '3-7m' | '7-20m' | '20m-up') | null;
-  message?: string | null;
-  consentPDPA: boolean;
-  source?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * All projects — save as draft until ready to publish
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -545,6 +529,26 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Leads from the website contact form — newest first
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "leads".
+ */
+export interface Lead {
+  id: number;
+  name: string;
+  phone: string;
+  email?: string | null;
+  interestProject?: (number | null) | Project;
+  interestText?: string | null;
+  budget?: ('under-3m' | '3-7m' | '7-20m' | '20m-up') | null;
+  message?: string | null;
+  consentPDPA: boolean;
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * Promotions auto-hide from the website after the end date
@@ -920,6 +924,7 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               subtitle?: T;
               source?: T;
+              projects?: T;
               count?: T;
               ctaLabel?: T;
               ctaUrl?: T;
