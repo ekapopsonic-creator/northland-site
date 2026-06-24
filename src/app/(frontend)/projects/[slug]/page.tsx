@@ -184,9 +184,9 @@ export default async function ProjectDetailPage({
                 <hr className="divider" style={{ margin: '1.5rem 0' }} />
 
                 <div style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.8 }}>
-                  <p>📞 088-888-8888</p>
-                  <p>💬 LINE: @northland</p>
-                  <p>✉ sales@northland.co.th</p>
+                  <p>📞 {project.contact?.phone || '088-888-8888'}</p>
+                  <p>💬 LINE: {project.contact?.lineId || '@northland'}</p>
+                  <p>✉ {project.contact?.salesEmail || 'sales@northland.co.th'}</p>
                 </div>
               </div>
             </aside>

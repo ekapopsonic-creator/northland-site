@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { getPublishedProjects } from '@/lib/queries'
 import { LeadForm } from '@/components/LeadForm'
 
@@ -87,6 +88,8 @@ export default async function ContactPage() {
           </div>
         </div>
       </section>
+
+      <PageSections slug="contact" />
     </main>
   )
 }

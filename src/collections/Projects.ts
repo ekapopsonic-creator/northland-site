@@ -200,6 +200,17 @@ export const Projects: CollectionConfig = {
       ],
     },
     {
+      name: 'contact',
+      type: 'group',
+      label: { th: 'ติดต่อเฉพาะโครงการนี้', en: 'Project contact' },
+      admin: { description: 'เว้นว่าง = ใช้เบอร์/LINE กลางของบริษัท' },
+      fields: [
+        { name: 'phone', type: 'text', label: { th: 'เบอร์โทร (เฉพาะโครงการนี้)', en: 'Phone' } },
+        { name: 'lineId', type: 'text', label: { th: 'LINE ID (เฉพาะโครงการนี้)', en: 'LINE ID' } },
+        { name: 'salesEmail', type: 'text', label: { th: 'อีเมลขาย (เฉพาะโครงการนี้)', en: 'Sales email' } },
+      ],
+    },
+    {
       name: 'videoUrl',
       type: 'text',
       label: { th: 'ลิงก์วิดีโอ (YouTube)', en: 'Video URL' },

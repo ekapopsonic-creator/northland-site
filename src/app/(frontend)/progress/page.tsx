@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { getProgressUpdates } from '@/lib/queries'
 import { categoryLabels, zoneLabels, mediaUrl } from '@/lib/labels'
 import type { Project } from '@/payload-types'
@@ -131,6 +132,8 @@ export default async function ProgressPage() {
           <Link href="/contact" className="btn btn-light btn-lg">ติดต่อเรา</Link>
         </div>
       </section>
+
+      <PageSections slug="progress" />
     </main>
   )
 }

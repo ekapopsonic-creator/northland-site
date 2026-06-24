@@ -1,5 +1,23 @@
 import type { Block } from 'payload'
-import { appearanceFields } from './shared'
+import { appearanceFields, headingStyleFields } from './shared'
+
+const columnOptions = [
+  { label: '1', value: '1' },
+  { label: '2', value: '2' },
+  { label: '3', value: '3' },
+  { label: '4', value: '4' },
+  { label: '5', value: '5' },
+]
+
+// อัปโหลดหลายรูปพร้อมกัน (เลือกหลายไฟล์ทีเดียว)
+const bulkImagesField: any = {
+  name: 'imageList',
+  type: 'upload',
+  relationTo: 'media',
+  hasMany: true,
+  label: { th: 'รูปภาพ (เลือกหลายรูปพร้อมกันได้)', en: 'Images (bulk)' },
+  admin: { description: 'กดเลือกได้หลายรูปในครั้งเดียว' },
+}
 
 const heading = (thLabel: string): any => ({
   name: 'heading',
@@ -125,6 +143,14 @@ export const FeaturedProjectsBlock: Block = {
       admin: { description: 'เช่น ดูโครงการทั้งหมด →' },
     },
     { name: 'ctaUrl', type: 'text', defaultValue: '/projects', label: { th: 'ลิงก์ปุ่มท้าย', en: 'CTA URL' } },
+    {
+      name: 'columns',
+      type: 'select',
+      defaultValue: '3',
+      label: { th: 'จำนวนคอลัมน์', en: 'Columns' },
+      options: columnOptions,
+    },
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -141,11 +167,7 @@ export const FeaturesBlock: Block = {
       type: 'select',
       defaultValue: '3',
       label: { th: 'จำนวนคอลัมน์', en: 'Columns' },
-      options: [
-        { label: '2', value: '2' },
-        { label: '3', value: '3' },
-        { label: '4', value: '4' },
-      ],
+      options: columnOptions,
     },
     {
       name: 'items',
@@ -159,6 +181,7 @@ export const FeaturesBlock: Block = {
         { name: 'text', type: 'textarea', localized: true, label: { th: 'รายละเอียด', en: 'Text' } },
       ],
     },
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -190,6 +213,7 @@ export const RichTextBlock: Block = {
         { label: { th: 'ปกติ', en: 'Normal' }, value: 'normal' },
       ],
     },
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -213,6 +237,7 @@ export const ImageTextBlock: Block = {
     heading('หัวข้อ'),
     { name: 'content', type: 'richText', localized: true, label: { th: 'เนื้อหา', en: 'Content' } },
     buttonsField,
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -227,23 +252,39 @@ export const GalleryBlock: Block = {
       type: 'select',
       defaultValue: '3',
       label: { th: 'จำนวนคอลัมน์', en: 'Columns' },
-      options: [
-        { label: '2', value: '2' },
-        { label: '3', value: '3' },
-        { label: '4', value: '4' },
-      ],
+      options: columnOptions,
+    },
+    bulkImagesField,
+    headingStyleFields,
+    appearanceFields,
+  ],
+}
+
+export const SliderBlock: Block = {
+  slug: 'slider',
+  labels: { singular: { th: 'สไลด์รูป (Carousel)', en: 'Slider' }, plural: { th: 'สไลด์', en: 'Sliders' } },
+  fields: [
+    eyebrow,
+    heading('หัวข้อ (เว้นว่างได้)'),
+    bulkImagesField,
+    {
+      name: 'autoplay',
+      type: 'checkbox',
+      defaultValue: true,
+      label: { th: 'เลื่อนอัตโนมัติ', en: 'Autoplay' },
     },
     {
-      name: 'images',
-      type: 'array',
-      minRows: 1,
-      label: { th: 'รูปภาพ', en: 'Images' },
-      labels: { singular: { th: 'รูป', en: 'Image' }, plural: { th: 'รูป', en: 'Images' } },
-      fields: [
-        { name: 'image', type: 'upload', relationTo: 'media', required: true, label: { th: 'รูป', en: 'Image' } },
-        { name: 'caption', type: 'text', label: { th: 'คำบรรยาย', en: 'Caption' } },
+      name: 'height',
+      type: 'select',
+      defaultValue: 'md',
+      label: { th: 'ความสูงสไลด์', en: 'Height' },
+      options: [
+        { label: { th: 'เตี้ย', en: 'Short' }, value: 'sm' },
+        { label: { th: 'กลาง', en: 'Medium' }, value: 'md' },
+        { label: { th: 'สูง (เต็มจอ)', en: 'Tall' }, value: 'lg' },
       ],
     },
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -267,6 +308,7 @@ export const TimelineBlock: Block = {
         { name: 'text', type: 'textarea', localized: true, label: { th: 'รายละเอียด', en: 'Text' } },
       ],
     },
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -278,6 +320,7 @@ export const CTABlock: Block = {
     { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อ', en: 'Title' } },
     { name: 'text', type: 'textarea', localized: true, label: { th: 'ข้อความ', en: 'Text' } },
     buttonsField,
+    headingStyleFields,
     appearanceFields,
   ],
 }
@@ -308,6 +351,7 @@ export const allBlocks: Block[] = [
   RichTextBlock,
   ImageTextBlock,
   GalleryBlock,
+  SliderBlock,
   TimelineBlock,
   CTABlock,
   SpacerBlock,

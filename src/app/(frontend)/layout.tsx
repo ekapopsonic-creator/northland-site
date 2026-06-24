@@ -19,7 +19,11 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   const settings = await getSiteSettings().catch(() => null)
   const brand = settings?.brandColor || '#00AEEF'
   const brandDark = settings?.brandColorDark || '#03A1D1'
+  const s1 = settings?.secondaryColor1 || '#58595B'
+  const s2 = settings?.secondaryColor2 || '#C9A24B'
+  const s3 = settings?.secondaryColor3 || '#2E9E5B'
   const logoUrl = mediaUrl(settings?.logo)
+  const logoDarkUrl = mediaUrl(settings?.logoDark)
   const fonts = buildFontConfig(settings?.bodyFont, settings?.displayFont)
 
   return (
@@ -30,13 +34,13 @@ export default async function FrontendLayout({ children }: { children: React.Rea
         {/* ฟอนต์จากตั้งค่าเว็บไซต์ — ทีมเลือกได้เอง */}
         <link href={fonts.href} rel="stylesheet" />
         {/* สี + ฟอนต์จากตั้งค่าเว็บไซต์ในหลังบ้าน */}
-        <style>{`:root{--north-sea:${brand};--deep-blue:${brandDark};}${fonts.cssVars}`}</style>
+        <style>{`:root{--north-sea:${brand};--deep-blue:${brandDark};--secondary-1:${s1};--secondary-2:${s2};--secondary-3:${s3};}${fonts.cssVars}`}</style>
       </head>
       <body>
         <Header logoUrl={logoUrl} />
         {children}
         <Footer
-          logoUrl={logoUrl}
+          logoUrl={logoDarkUrl || logoUrl}
           tagline={settings?.footerTagline || undefined}
           phone={settings?.phone || undefined}
           email={settings?.email || undefined}

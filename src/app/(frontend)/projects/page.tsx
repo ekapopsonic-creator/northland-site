@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { getPublishedProjects } from '@/lib/queries'
 import { categoryLabels, statusLabels, zoneLabels, mediaUrl } from '@/lib/labels'
 import { ProjectsFilter, type ProjectCardData } from '@/components/ProjectsFilter'
@@ -58,6 +59,8 @@ export default async function ProjectsPage({
           />
         </div>
       </section>
+
+      <PageSections slug="projects" />
     </main>
   )
 }

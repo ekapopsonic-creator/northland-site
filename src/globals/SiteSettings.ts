@@ -27,8 +27,15 @@ export const SiteSettings: GlobalConfig = {
               name: 'logo',
               type: 'upload',
               relationTo: 'media',
-              label: { th: 'โลโก้ (แสดงบนหัวเว็บ)', en: 'Logo' },
+              label: { th: 'โลโก้ (แสดงบนหัวเว็บ พื้นสว่าง)', en: 'Logo' },
               admin: { description: 'เว้นว่าง = ใช้โลโก้ NORTHLAND ตัวอักษรเริ่มต้น' },
+            },
+            {
+              name: 'logoDark',
+              type: 'upload',
+              relationTo: 'media',
+              label: { th: 'โลโก้สำหรับพื้นเข้ม (เช่น footer)', en: 'Logo (for dark background)' },
+              admin: { description: 'โลโก้สีขาว/สว่าง สำหรับวางบนพื้นหลังสีเข้ม — เว้นว่าง = ใช้โลโก้ตัวอักษรขาว' },
             },
             {
               name: 'brandColor',
@@ -43,6 +50,32 @@ export const SiteSettings: GlobalConfig = {
               defaultValue: '#03A1D1',
               label: { th: 'สีหลักเข้ม (ปุ่ม hover / accent)', en: 'Brand color (dark)' },
               admin: { description: 'รหัสสี HEX เช่น #03A1D1' },
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'secondaryColor1',
+                  type: 'text',
+                  defaultValue: '#58595B',
+                  label: { th: 'Secondary 1', en: 'Secondary 1' },
+                  admin: { description: 'HEX' },
+                },
+                {
+                  name: 'secondaryColor2',
+                  type: 'text',
+                  defaultValue: '#C9A24B',
+                  label: { th: 'Secondary 2', en: 'Secondary 2' },
+                  admin: { description: 'HEX' },
+                },
+                {
+                  name: 'secondaryColor3',
+                  type: 'text',
+                  defaultValue: '#2E9E5B',
+                  label: { th: 'Secondary 3', en: 'Secondary 3' },
+                  admin: { description: 'HEX' },
+                },
+              ],
             },
             {
               type: 'row',

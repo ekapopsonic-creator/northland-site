@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { getPublishedProjects } from '@/lib/queries'
 import { RepairForm } from '@/components/RepairForm'
 import { LoanCalculator } from '@/components/LoanCalculator'
@@ -85,6 +86,8 @@ export default async function AfterSalesPage() {
           </div>
         </div>
       </section>
+
+      <PageSections slug="after-sales" />
     </main>
   )
 }

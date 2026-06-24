@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { getPublishedPosts } from '@/lib/queries'
 import { postCategoryLabels, mediaUrl } from '@/lib/labels'
 
@@ -63,6 +64,8 @@ export default async function BlogPage() {
           )}
         </div>
       </section>
+
+      <PageSections slug="blog" />
     </main>
   )
 }

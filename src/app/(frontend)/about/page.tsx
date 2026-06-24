@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 
 export const metadata: Metadata = {
   title: 'เกี่ยวกับเรา — Northland Development',
@@ -136,6 +137,8 @@ export default function AboutPage() {
           <Link href="/projects" className="btn btn-light btn-lg">ดูโครงการทั้งหมด</Link>
         </div>
       </section>
+
+      <PageSections slug="about" />
     </main>
   )
 }

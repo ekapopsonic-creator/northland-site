@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { getActivePromotions } from '@/lib/queries'
 import { mediaUrl } from '@/lib/labels'
@@ -84,6 +85,8 @@ export default async function PromotionsPage() {
           <Link href="/contact" className="btn btn-light btn-lg">ลงทะเบียนรับโปร</Link>
         </div>
       </section>
+
+      <PageSections slug="promotions" />
     </main>
   )
 }

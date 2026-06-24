@@ -172,8 +172,14 @@ export interface Page {
                 }[]
               | null;
             showSearch?: boolean | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -189,8 +195,14 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'stats';
@@ -210,8 +222,38 @@ export interface Page {
              */
             ctaLabel?: string | null;
             ctaUrl?: string | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            columns?: ('1' | '2' | '3' | '4' | '5') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'featuredProjects';
@@ -220,7 +262,7 @@ export interface Page {
             eyebrow?: string | null;
             heading?: string | null;
             subtitle?: string | null;
-            columns?: ('2' | '3' | '4') | null;
+            columns?: ('1' | '2' | '3' | '4' | '5') | null;
             items?:
               | {
                   /**
@@ -232,8 +274,37 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'features';
@@ -258,8 +329,37 @@ export interface Page {
             } | null;
             align?: ('left' | 'center') | null;
             width?: ('narrow' | 'normal') | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'richText';
@@ -295,27 +395,126 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'imageText';
           }
         | {
             heading?: string | null;
-            columns?: ('2' | '3' | '4') | null;
-            images?:
-              | {
-                  image: number | Media;
-                  caption?: string | null;
-                  id?: string | null;
-                }[]
+            columns?: ('1' | '2' | '3' | '4' | '5') | null;
+            /**
+             * กดเลือกได้หลายรูปในครั้งเดียว
+             */
+            imageList?: (number | Media)[] | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
               | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'gallery';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            /**
+             * กดเลือกได้หลายรูปในครั้งเดียว
+             */
+            imageList?: (number | Media)[] | null;
+            autoplay?: boolean | null;
+            height?: ('sm' | 'md' | 'lg') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slider';
           }
         | {
             eyebrow?: string | null;
@@ -329,8 +528,37 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'timeline';
@@ -349,8 +577,37 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            background?: ('none' | 'soft' | 'brand' | 'dark') | null;
+            headingFont?:
+              | (
+                  | ''
+                  | 'prompt'
+                  | 'sarabun'
+                  | 'kanit'
+                  | 'athiti'
+                  | 'anuphan'
+                  | 'ibm-thai'
+                  | 'montserrat'
+                  | 'barlow'
+                  | 'zalando'
+                  | 'noto-thai'
+                  | 'cormorant'
+                  | 'playfair'
+                  | 'noto-serif-thai'
+                )
+              | null;
+            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
+            /**
+             * เช่น #00AEEF
+             */
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
+            /**
+             * รหัสสี HEX เช่น #f0f8ff
+             */
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta';
@@ -508,6 +765,14 @@ export interface Project {
     googleMapsUrl?: string | null;
     lat?: number | null;
     lng?: number | null;
+  };
+  /**
+   * เว้นว่าง = ใช้เบอร์/LINE กลางของบริษัท
+   */
+  contact?: {
+    phone?: string | null;
+    lineId?: string | null;
+    salesEmail?: string | null;
   };
   videoUrl?: string | null;
   virtualTourUrl?: string | null;
@@ -899,6 +1164,9 @@ export interface PagesSelect<T extends boolean = true> {
               showSearch?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -914,6 +1182,9 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -928,8 +1199,15 @@ export interface PagesSelect<T extends boolean = true> {
               count?: T;
               ctaLabel?: T;
               ctaUrl?: T;
+              columns?: T;
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -948,8 +1226,14 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -961,8 +1245,14 @@ export interface PagesSelect<T extends boolean = true> {
               content?: T;
               align?: T;
               width?: T;
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -982,8 +1272,14 @@ export interface PagesSelect<T extends boolean = true> {
                     style?: T;
                     id?: T;
                   };
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -992,15 +1288,34 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               columns?: T;
-              images?:
-                | T
-                | {
-                    image?: T;
-                    caption?: T;
-                    id?: T;
-                  };
+              imageList?: T;
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              imageList?: T;
+              autoplay?: T;
+              height?: T;
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
+              background?: T;
+              paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -1018,8 +1333,14 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -1036,8 +1357,14 @@ export interface PagesSelect<T extends boolean = true> {
                     style?: T;
                     id?: T;
                   };
+              headingFont?: T;
+              headingWeight?: T;
+              headingColor?: T;
               background?: T;
               paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
               id?: T;
               blockName?: T;
             };
@@ -1129,6 +1456,13 @@ export interface ProjectsSelect<T extends boolean = true> {
         googleMapsUrl?: T;
         lat?: T;
         lng?: T;
+      };
+  contact?:
+    | T
+    | {
+        phone?: T;
+        lineId?: T;
+        salesEmail?: T;
       };
   videoUrl?: T;
   virtualTourUrl?: T;
@@ -1376,6 +1710,10 @@ export interface SiteSetting {
    */
   logo?: (number | null) | Media;
   /**
+   * โลโก้สีขาว/สว่าง สำหรับวางบนพื้นหลังสีเข้ม — เว้นว่าง = ใช้โลโก้ตัวอักษรขาว
+   */
+  logoDark?: (number | null) | Media;
+  /**
    * รหัสสี HEX เช่น #00AEEF (สีฟ้า North Sea ของ Northland)
    */
   brandColor?: string | null;
@@ -1383,8 +1721,50 @@ export interface SiteSetting {
    * รหัสสี HEX เช่น #03A1D1
    */
   brandColorDark?: string | null;
-  bodyFont?: ('prompt' | 'sarabun' | 'kanit' | 'noto-thai' | 'ibm-thai' | 'bai-jamjuree') | null;
-  displayFont?: ('cormorant' | 'playfair' | 'prompt-display' | 'kanit-display' | 'noto-serif-thai') | null;
+  /**
+   * HEX
+   */
+  secondaryColor1?: string | null;
+  /**
+   * HEX
+   */
+  secondaryColor2?: string | null;
+  /**
+   * HEX
+   */
+  secondaryColor3?: string | null;
+  bodyFont?:
+    | (
+        | 'prompt'
+        | 'sarabun'
+        | 'kanit'
+        | 'athiti'
+        | 'anuphan'
+        | 'ibm-thai'
+        | 'montserrat'
+        | 'barlow'
+        | 'zalando'
+        | 'noto-thai'
+        | 'noto-serif-thai'
+      )
+    | null;
+  displayFont?:
+    | (
+        | 'prompt'
+        | 'sarabun'
+        | 'kanit'
+        | 'athiti'
+        | 'anuphan'
+        | 'ibm-thai'
+        | 'montserrat'
+        | 'barlow'
+        | 'zalando'
+        | 'noto-thai'
+        | 'cormorant'
+        | 'playfair'
+        | 'noto-serif-thai'
+      )
+    | null;
   phone?: string | null;
   email?: string | null;
   lineId?: string | null;
@@ -1403,8 +1783,12 @@ export interface SiteSetting {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
+  logoDark?: T;
   brandColor?: T;
   brandColorDark?: T;
+  secondaryColor1?: T;
+  secondaryColor2?: T;
+  secondaryColor3?: T;
   bodyFont?: T;
   displayFont?: T;
   phone?: T;

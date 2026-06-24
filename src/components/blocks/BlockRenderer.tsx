@@ -1,11 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { sectionStyle, type Appearance } from '@/blocks/shared'
+import { sectionStyle, headingStyle, type Appearance } from '@/blocks/shared'
 import { mediaUrl } from '@/lib/labels'
 import { ProjectCard } from '@/components/ProjectCard'
 import { HeroSearch } from '@/components/HeroSearch'
+import { Slider } from '@/components/blocks/Slider'
 import type { Project } from '@/payload-types'
+
+// แปลง hasMany upload (imageList) → array ของ url
+const imageUrls = (list: any): { url: string; alt?: string }[] =>
+  (Array.isArray(list) ? list : [])
+    .map((m) => ({ url: mediaUrl(m) || '', alt: (m && typeof m === 'object' && m.alt) || '' }))
+    .filter((x) => x.url)
 
 const btnClass = (style?: string) =>
   `btn btn-lg ${
@@ -92,13 +99,14 @@ export function BlockRenderer({
 
           case 'featuredProjects': {
             const list: Project[] = block._projects || featuredProjects
+            const cols = Number(block.columns || 3)
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
                   {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
-                  {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
+                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
-                  <div className="project-grid">
+                  <div className="project-grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
                     {list.map((p) => (
                       <ProjectCard key={p.id} project={p} />
                     ))}
@@ -121,7 +129,7 @@ export function BlockRenderer({
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
                   {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
-                  {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
+                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
                   <div className="features" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
                     {(block.items || []).map((f: any, j: number) => (
@@ -148,7 +156,7 @@ export function BlockRenderer({
                   }}
                 >
                   {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
-                  {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
+                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.content ? (
                     <div style={{ lineHeight: 1.9 }}>
                       <RichText data={block.content} />
@@ -172,7 +180,7 @@ export function BlockRenderer({
                     </div>
                     <div style={{ direction: 'ltr' }}>
                       {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
-                      {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
+                      {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                       {block.content ? <RichText data={block.content} /> : null}
                       <Buttons buttons={block.buttons} />
                     </div>
@@ -184,21 +192,29 @@ export function BlockRenderer({
 
           case 'gallery': {
             const cols = Number(block.columns || 3)
+            const imgs = imageUrls(block.imageList)
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
-                  {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
+                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: '1rem', marginTop: '1.5rem' }}>
-                    {(block.images || []).map((g: any, j: number) => {
-                      const gi = mediaUrl(g.image)
-                      return gi ? (
-                        <figure key={g.id || j} style={{ margin: 0 }}>
-                          <img src={gi} alt={g.caption || ''} style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: 12 }} />
-                          {g.caption ? <figcaption style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', marginTop: '0.4rem' }}>{g.caption}</figcaption> : null}
-                        </figure>
-                      ) : null
-                    })}
+                    {imgs.map((g, j) => (
+                      <img key={j} src={g.url} alt={g.alt || ''} style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: 12 }} />
+                    ))}
                   </div>
+                </div>
+              </section>
+            )
+          }
+
+          case 'slider': {
+            const imgs = imageUrls(block.imageList)
+            const h = { sm: '320px', md: '480px', lg: '640px' }[block.height as 'sm' | 'md' | 'lg'] || '480px'
+            return (
+              <section key={key} className="section" style={sectionStyle(a)}>
+                <div className="container">
+                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
+                  <Slider images={imgs} height={h} autoplay={block.autoplay !== false} />
                 </div>
               </section>
             )
@@ -209,7 +225,7 @@ export function BlockRenderer({
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
                   {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
-                  {block.heading ? <h2 className="section-title">{block.heading}</h2> : null}
+                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
                   <div className="timeline">
                     {(block.items || []).map((t: any, j: number) => (
@@ -228,7 +244,7 @@ export function BlockRenderer({
             return (
               <section key={key} className="cta-band" style={a.paddingY ? sectionStyle(a) : undefined}>
                 <div className="container">
-                  <h2>{block.title}</h2>
+                  <h2 style={headingStyle(block)}>{block.title}</h2>
                   {block.text ? <p>{block.text}</p> : null}
                   {(block.buttons || []).length > 0 ? (
                     <div style={{ marginTop: '1.5rem' }}>

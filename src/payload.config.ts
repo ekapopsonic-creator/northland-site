@@ -4,7 +4,8 @@ import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, TextStateFeature } from '@payloadcms/richtext-lexical'
+import { richTextFonts, richTextWeights, richTextColors } from './lib/fonts'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { en } from '@payloadcms/translations/languages/en'
@@ -58,7 +59,19 @@ export default buildConfig({
     Users,
   ],
   globals: [SiteSettings],
-  editor: lexicalEditor(),
+  // rich text ทุกช่อง (description / เนื้อหา) เลือกฟอนต์ + ค่าน้ำหนัก + สีข้อความ ได้
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      TextStateFeature({
+        state: {
+          color: richTextColors,
+          font: richTextFonts,
+          weight: richTextWeights,
+        },
+      }),
+    ],
+  }),
   i18n: {
     fallbackLanguage: 'th',
     supportedLanguages: { en, th },

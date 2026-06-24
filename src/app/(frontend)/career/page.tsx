@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import { PageSections } from '@/components/blocks/PageSections'
 import { getActiveJobs } from '@/lib/queries'
 import { JobApplyForm } from '@/components/JobApplyForm'
 
@@ -110,6 +111,8 @@ export default async function CareerPage() {
           <JobApplyForm jobs={jobs.map((j) => ({ id: j.id, title: j.title }))} />
         </div>
       </section>
+
+      <PageSections slug="career" />
     </main>
   )
 }
