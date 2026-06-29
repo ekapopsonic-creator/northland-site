@@ -741,6 +741,11 @@ export interface Project {
    */
   promoNote?: string | null;
   coverImage?: (number | null) | Media;
+  /**
+   * เลือก "ตามรูปจริง" ถ้าไม่อยากให้โดนครอป
+   */
+  coverAspect?: ('auto' | '16-9' | '21-9' | '4-3' | '1-1' | '3-4') | null;
+  coverFit?: ('cover' | 'contain') | null;
   gallery?:
     | {
         image: number | Media;
@@ -1436,6 +1441,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   priceTier?: T;
   promoNote?: T;
   coverImage?: T;
+  coverAspect?: T;
+  coverFit?: T;
   gallery?:
     | T
     | {

@@ -8,6 +8,15 @@ import { categoryLabels, statusLabels, mediaUrl } from '@/lib/labels'
 
 export const revalidate = 60
 
+// แมปสัดส่วน → ค่า CSS aspect-ratio ('auto' = ตามรูปจริง)
+const aspectMap: Record<string, string> = {
+  '16-9': '16 / 9',
+  '21-9': '21 / 9',
+  '4-3': '4 / 3',
+  '1-1': '1 / 1',
+  '3-4': '3 / 4',
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -50,17 +59,29 @@ export default async function ProjectDetailPage({
         <div className="container">
           <div
             className={`detail-gallery${cover ? ' has-image' : ''}`}
-            style={
-              cover
-                ? {
-                    backgroundImage: `url(${cover})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    position: 'relative',
-                  }
-                : { position: 'relative' }
-            }
+            style={{
+              position: 'relative',
+              ...(cover
+                ? aspectMap[project.coverAspect || '16-9']
+                  ? { aspectRatio: aspectMap[project.coverAspect || '16-9'] }
+                  : { aspectRatio: 'auto' as const, height: 'auto' }
+                : {}),
+              ...(project.coverFit === 'contain' ? { background: 'var(--paper-soft)' } : {}),
+            }}
           >
+            {cover ? (
+              <img
+                src={cover}
+                alt={project.title}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: project.coverAspect === 'auto' ? 'auto' : '100%',
+                  objectFit: project.coverFit === 'contain' ? 'contain' : 'cover',
+                  borderRadius: 'var(--radius-lg)',
+                }}
+              />
+            ) : null}
             <span className="project-card-badge" style={{ position: 'absolute', top: '1.5rem', left: '1.5rem' }}>
               {categoryLabels[project.category] || project.category}
             </span>

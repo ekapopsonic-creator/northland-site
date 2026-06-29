@@ -164,6 +164,37 @@ export const Projects: CollectionConfig = {
       label: { th: 'รูปหน้าปกโครงการ', en: 'Cover image' },
     },
     {
+      type: 'row',
+      fields: [
+        {
+          name: 'coverAspect',
+          type: 'select',
+          defaultValue: '16-9',
+          label: { th: 'สัดส่วนรูปหน้าปก', en: 'Cover aspect ratio' },
+          admin: { description: 'เลือก "ตามรูปจริง" ถ้าไม่อยากให้โดนครอป' },
+          options: [
+            { label: { th: 'ตามรูปจริง (ไม่ครอป)', en: 'Original' }, value: 'auto' },
+            { label: { th: 'แนวนอน 16:9', en: '16:9' }, value: '16-9' },
+            { label: { th: 'แนวนอน 21:9 (กว้าง)', en: '21:9' }, value: '21-9' },
+            { label: { th: 'แนวนอน 4:3', en: '4:3' }, value: '4-3' },
+            { label: { th: 'จัตุรัส 1:1', en: '1:1' }, value: '1-1' },
+            { label: { th: 'แนวตั้ง 3:4', en: '3:4' }, value: '3-4' },
+          ],
+        },
+        {
+          name: 'coverFit',
+          type: 'select',
+          defaultValue: 'cover',
+          label: { th: 'วิธีจัดรูปในกรอบ', en: 'Image fit' },
+          admin: { condition: (_, sib) => sib?.coverAspect !== 'auto' },
+          options: [
+            { label: { th: 'เต็มกรอบ (ครอปขอบ)', en: 'Cover' }, value: 'cover' },
+            { label: { th: 'พอดีทั้งรูป (ไม่ครอป)', en: 'Contain' }, value: 'contain' },
+          ],
+        },
+      ],
+    },
+    {
       name: 'gallery',
       type: 'array',
       label: { th: 'แกลเลอรีรูปภาพ', en: 'Gallery' },
