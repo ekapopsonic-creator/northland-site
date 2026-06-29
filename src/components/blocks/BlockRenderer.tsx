@@ -55,7 +55,7 @@ export function BlockRenderer({
 
         switch (block.blockType) {
           case 'hero': {
-            const img = mediaUrl(block.image)
+            const img = block.imageUrl || mediaUrl(block.image)
             return (
               <section
                 key={key}
@@ -167,7 +167,7 @@ export function BlockRenderer({
             )
 
           case 'imageText': {
-            const img = mediaUrl(block.image)
+            const img = block.imageUrl || mediaUrl(block.image)
             const imgRight = block.imageSide === 'right'
             return (
               <section key={key} className="section" style={sectionStyle(a)}>

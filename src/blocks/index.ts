@@ -73,6 +73,7 @@ export const HeroBlock: Block = {
     { name: 'tagline', type: 'text', localized: true, label: { th: 'ข้อความรอง', en: 'Tagline' } },
     { name: 'lead', type: 'textarea', localized: true, label: { th: 'ย่อหน้าแนะนำ', en: 'Lead text' } },
     { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูปพื้นหลัง', en: 'Background image' } },
+    { name: 'imageUrl', type: 'text', label: { th: 'หรือใส่ลิงก์รูป (URL)', en: 'Or image URL' }, admin: { description: 'ใช้แทนการอัปโหลด เช่น /wp/BG.jpg' } },
     buttonsField,
     { name: 'showSearch', type: 'checkbox', defaultValue: false, label: { th: 'แสดงกล่องค้นหาโครงการ', en: 'Show project search' } },
     appearanceFields,
@@ -222,7 +223,8 @@ export const ImageTextBlock: Block = {
   slug: 'imageText',
   labels: { singular: { th: 'รูป + ข้อความ', en: 'Image + Text' }, plural: { th: 'รูป + ข้อความ', en: 'Image + Text' } },
   fields: [
-    { name: 'image', type: 'upload', relationTo: 'media', required: true, label: { th: 'รูป', en: 'Image' } },
+    { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูป', en: 'Image' } },
+    { name: 'imageUrl', type: 'text', label: { th: 'หรือใส่ลิงก์รูป (URL)', en: 'Or image URL' }, admin: { description: 'ใช้แทนการอัปโหลด เช่น /wp/ARNA.jpg' } },
     {
       name: 'imageSide',
       type: 'select',

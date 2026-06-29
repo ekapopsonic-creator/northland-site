@@ -160,6 +160,10 @@ export interface Page {
             tagline?: string | null;
             lead?: string | null;
             image?: (number | null) | Media;
+            /**
+             * ใช้แทนการอัปโหลด เช่น /wp/BG.jpg
+             */
+            imageUrl?: string | null;
             buttons?:
               | {
                   label: string;
@@ -365,7 +369,11 @@ export interface Page {
             blockType: 'richText';
           }
         | {
-            image: number | Media;
+            image?: (number | null) | Media;
+            /**
+             * ใช้แทนการอัปโหลด เช่น /wp/ARNA.jpg
+             */
+            imageUrl?: string | null;
             imageSide?: ('left' | 'right') | null;
             eyebrow?: string | null;
             heading?: string | null;
@@ -1158,6 +1166,7 @@ export interface PagesSelect<T extends boolean = true> {
               tagline?: T;
               lead?: T;
               image?: T;
+              imageUrl?: T;
               buttons?:
                 | T
                 | {
@@ -1265,6 +1274,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+              imageUrl?: T;
               imageSide?: T;
               eyebrow?: T;
               heading?: T;
