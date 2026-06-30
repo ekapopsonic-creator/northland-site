@@ -5,7 +5,7 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor, TextStateFeature } from '@payloadcms/richtext-lexical'
-import { richTextFonts, richTextWeights, richTextColors } from './lib/fonts'
+import { richTextFonts, richTextWeights, richTextColors, richTextSizes, richTextHighlights } from './lib/fonts'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { en } from '@payloadcms/translations/languages/en'
@@ -66,7 +66,9 @@ export default buildConfig({
       TextStateFeature({
         state: {
           color: richTextColors,
+          highlight: richTextHighlights,
           font: richTextFonts,
+          size: richTextSizes,
           weight: richTextWeights,
         },
       }),

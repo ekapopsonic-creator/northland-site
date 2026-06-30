@@ -1,7 +1,10 @@
 import type { GlobalConfig } from 'payload'
 import { anyone, isAdminOrEditor } from '../access'
 import { bodyFontOptions, displayFontOptions } from '../lib/fonts'
-import { colorField } from '../blocks/shared'
+import { colorField, textField } from '../blocks/shared'
+
+const SIZE_FIELD = '/components/admin/StyleSelects#SizeSelectField'
+const SPACING_FIELD = '/components/admin/StyleSelects#SpacingSelectField'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -64,6 +67,31 @@ export const SiteSettings: GlobalConfig = {
                   defaultValue: 'cormorant',
                   label: { th: 'ฟอนต์หัวข้อ (Display)', en: 'Display font' },
                   options: displayFontOptions,
+                },
+                textField('baseFontSize', 'ขนาดตัวอักษรพื้นฐาน', SIZE_FIELD),
+              ],
+            },
+          ],
+        },
+        {
+          label: { th: 'ระยะห่าง (Layout)', en: 'Spacing' },
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                textField('headerPaddingY', 'ระยะ Header (บน-ล่าง)', SPACING_FIELD),
+                textField('footerPaddingY', 'ระยะ Footer (บน-ล่าง)', SPACING_FIELD),
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                textField('bodyGap', 'ระยะห่างระหว่าง Section (Body)', SPACING_FIELD),
+                {
+                  name: 'containerWidth',
+                  type: 'text',
+                  label: { th: 'ความกว้างเนื้อหาหลัก', en: 'Container width' },
+                  admin: { description: 'พิมพ์: normal (1200px) / wide (1400px) / full (เต็มจอ)' },
                 },
               ],
             },

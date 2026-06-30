@@ -53,6 +53,27 @@ export const richTextWeights = {
   '800': { label: 'หนามาก (800)', css: { 'font-weight': '800' } },
 }
 
+// ขนาดตัวอักษร (สำหรับ rich text)
+export const richTextSizes = {
+  s14: { label: 'เล็ก 14', css: { 'font-size': '14px' } },
+  s16: { label: 'ปกติ 16', css: { 'font-size': '16px' } },
+  s18: { label: '18', css: { 'font-size': '18px' } },
+  s20: { label: '20', css: { 'font-size': '20px' } },
+  s24: { label: 'ใหญ่ 24', css: { 'font-size': '24px' } },
+  s28: { label: '28', css: { 'font-size': '28px' } },
+  s32: { label: 'หัวข้อ 32', css: { 'font-size': '32px' } },
+  s40: { label: '40', css: { 'font-size': '40px' } },
+}
+
+// ไฮไลต์ (พื้นหลังข้อความ)
+export const richTextHighlights = {
+  yellow: { label: 'ไฮไลต์เหลือง', css: { 'background-color': '#FFF3A0' } },
+  blue: { label: 'ไฮไลต์ฟ้า', css: { 'background-color': '#CFEFFF' } },
+  green: { label: 'ไฮไลต์เขียว', css: { 'background-color': '#D6F5DD' } },
+  pink: { label: 'ไฮไลต์ชมพู', css: { 'background-color': '#FFD9E2' } },
+  navy: { label: 'พื้นกรมท่า (ตัวขาว)', css: { 'background-color': '#1E3644', color: '#ffffff', padding: '0 4px' } },
+}
+
 // สีข้อความ (ใช้ตัวแปรแบรนด์ + สีพื้นฐาน)
 export const richTextColors = {
   brand: { label: 'สีแบรนด์', css: { color: 'var(--north-sea)' } },

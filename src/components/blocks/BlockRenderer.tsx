@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { sectionStyle, headingStyle, styleFor, type Appearance } from '@/blocks/shared'
+import { sectionStyle, headingStyle, styleFor, gapStyle, type Appearance } from '@/blocks/shared'
 import { mediaUrl } from '@/lib/labels'
 import { ProjectCard } from '@/components/ProjectCard'
 import { HeroSearch } from '@/components/HeroSearch'
@@ -106,7 +106,7 @@ export function BlockRenderer({
                   {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
-                  <div className="project-grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+                  <div className="project-grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, ...gapStyle(a) }}>
                     {list.map((p) => (
                       <ProjectCard key={p.id} project={p} />
                     ))}
@@ -131,7 +131,7 @@ export function BlockRenderer({
                   {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
-                  <div className="features" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+                  <div className="features" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, ...gapStyle(a) }}>
                     {(block.items || []).map((f: any, j: number) => (
                       <div className="feature" key={f.id || j}>
                         {f.icon ? <div className="feature-icon">{f.icon}</div> : null}
@@ -258,6 +258,50 @@ export function BlockRenderer({
                 </div>
               </section>
             )
+
+          case 'columns': {
+            const cols = (block.cols || []) as any[]
+            return (
+              <section key={key} className="section" style={sectionStyle(a)}>
+                <div className="container">
+                  {block.heading ? <h2 className="section-title" style={styleFor(block, 'heading')}>{block.heading}</h2> : null}
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: block.gap || '2rem',
+                      alignItems: block.valign === 'center' ? 'center' : 'flex-start',
+                      marginTop: block.heading ? '2rem' : 0,
+                    }}
+                  >
+                    {cols.map((col, j) => {
+                      const cImg = col.imageUrl || mediaUrl(col.image)
+                      return (
+                        <div
+                          key={col.id || j}
+                          style={{
+                            flex: `${col.span || 1} 1 0`,
+                            minWidth: 240,
+                            textAlign: col.align === 'center' ? 'center' : 'left',
+                          }}
+                        >
+                          {cImg ? (
+                            <img src={cImg} alt={col.colHeading || ''} style={{ width: '100%', borderRadius: 12, marginBottom: '1rem' }} />
+                          ) : null}
+                          {col.colHeading ? (
+                            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', marginBottom: '0.75rem', ...styleFor(col, 'heading') }}>
+                              {col.colHeading}
+                            </h3>
+                          ) : null}
+                          {col.content ? <RichText data={col.content} /> : null}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </section>
+            )
+          }
 
           case 'spacer':
             return <div key={key} style={{ height: { sm: '2rem', md: '4rem', lg: '7rem' }[block.size as 'sm' | 'md' | 'lg'] || '4rem' }} />

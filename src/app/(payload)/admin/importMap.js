@@ -1,6 +1,8 @@
 import { FontSelectField as FontSelectField_fccdf4a35dd250a9313ccdd605547529 } from '../../../components/admin/StyleSelects'
 import { WeightSelectField as WeightSelectField_fccdf4a35dd250a9313ccdd605547529 } from '../../../components/admin/StyleSelects'
+import { SizeSelectField as SizeSelectField_fccdf4a35dd250a9313ccdd605547529 } from '../../../components/admin/StyleSelects'
 import { ColorField as ColorField_f18d715b9f5ea63091d1361f9c46fa22 } from '../../../components/admin/ColorField'
+import { SpacingSelectField as SpacingSelectField_fccdf4a35dd250a9313ccdd605547529 } from '../../../components/admin/StyleSelects'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -34,7 +36,9 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 export const importMap = {
   "/components/admin/StyleSelects#FontSelectField": FontSelectField_fccdf4a35dd250a9313ccdd605547529,
   "/components/admin/StyleSelects#WeightSelectField": WeightSelectField_fccdf4a35dd250a9313ccdd605547529,
+  "/components/admin/StyleSelects#SizeSelectField": SizeSelectField_fccdf4a35dd250a9313ccdd605547529,
   "/components/admin/ColorField#ColorField": ColorField_f18d715b9f5ea63091d1361f9c46fa22,
+  "/components/admin/StyleSelects#SpacingSelectField": SpacingSelectField_fccdf4a35dd250a9313ccdd605547529,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,

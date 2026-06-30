@@ -17,29 +17,26 @@ export function colorField(name: string, th: string, defaultValue?: string): Fie
 
 const FONT_FIELD = '/components/admin/StyleSelects#FontSelectField'
 const WEIGHT_FIELD = '/components/admin/StyleSelects#WeightSelectField'
+const SIZE_FIELD = '/components/admin/StyleSelects#SizeSelectField'
+const SPACING_FIELD = '/components/admin/StyleSelects#SpacingSelectField'
 
-// ฟอนต์/น้ำหนัก เก็บเป็น text (ไม่สร้าง enum) แต่ใช้ dropdown component — เลี่ยง drizzle push interactive
-// กลุ่มตั้งค่าสไตล์ตัวอักษร (ฟอนต์/น้ำหนัก/สี) ของแต่ละชิ้นข้อความในบล็อก
+export function textField(name: string, label: string, component: string): Field {
+  return { name, type: 'text', label: { th: label, en: label }, admin: { components: { Field: component } } } as Field
+}
+
+// ฟอนต์/น้ำหนัก/ขนาด เก็บเป็น text (ไม่สร้าง enum) แต่ใช้ dropdown component — เลี่ยง drizzle push interactive
+// กลุ่มตั้งค่าสไตล์ตัวอักษร (ฟอนต์/น้ำหนัก/ขนาด/สี) ของแต่ละชิ้นข้อความในบล็อก
 export function textStyleFields(elements: { key: string; label: string }[]): Field {
   return {
     type: 'collapsible',
-    label: { th: '🎨 สไตล์ตัวอักษร (ฟอนต์ / น้ำหนัก / สี)', en: 'Text styles' },
+    label: { th: '🎨 สไตล์ตัวอักษร (ฟอนต์ / น้ำหนัก / ขนาด / สี)', en: 'Text styles' },
     admin: { initCollapsed: true },
     fields: elements.map((el) => ({
       type: 'row',
       fields: [
-        {
-          name: `${el.key}Font`,
-          type: 'text',
-          label: { th: `${el.label} — ฟอนต์`, en: `${el.label} font` },
-          admin: { components: { Field: FONT_FIELD } },
-        },
-        {
-          name: `${el.key}Weight`,
-          type: 'text',
-          label: { th: 'น้ำหนัก', en: 'Weight' },
-          admin: { components: { Field: WEIGHT_FIELD } },
-        },
+        textField(`${el.key}Font`, `${el.label} — ฟอนต์`, FONT_FIELD),
+        textField(`${el.key}Weight`, 'น้ำหนัก', WEIGHT_FIELD),
+        textField(`${el.key}Size`, 'ขนาด', SIZE_FIELD),
         colorField(`${el.key}Color`, 'สี'),
       ],
     })) as Field[],
@@ -103,6 +100,20 @@ export const appearanceFields: Field = {
       label: { th: 'รูปพื้นหลัง', en: 'Background image' },
       admin: { condition: (_: any, sib: any) => sib?.background === 'image' },
     },
+    {
+      type: 'row',
+      fields: [
+        textField('marginTop', 'ระยะห่างด้านบน (Margin top)', SPACING_FIELD),
+        textField('marginBottom', 'ระยะห่างด้านล่าง (Margin bottom)', SPACING_FIELD),
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        textField('paddingX', 'ระยะขอบซ้าย-ขวา (Padding X)', SPACING_FIELD),
+        textField('gap', 'ระยะห่างระหว่างชิ้น (Gap)', SPACING_FIELD),
+      ],
+    },
   ],
 }
 
@@ -112,11 +123,21 @@ export type Appearance = {
   bgColor?: string
   bgImage?: unknown
   textOnDark?: boolean
+  marginTop?: string
+  marginBottom?: string
+  paddingX?: string
+  gap?: string
 }
 
 export function sectionStyle(a?: Appearance): React.CSSProperties {
   const pad = { sm: '2.5rem', md: '4.5rem', lg: '7rem' }[a?.paddingY || 'md']
   const style: React.CSSProperties = { paddingTop: pad, paddingBottom: pad }
+  if (a?.marginTop) style.marginTop = a.marginTop
+  if (a?.marginBottom) style.marginBottom = a.marginBottom
+  if (a?.paddingX) {
+    style.paddingLeft = a.paddingX
+    style.paddingRight = a.paddingX
+  }
   switch (a?.background) {
     case 'soft':
       style.background = 'var(--paper-soft)'
@@ -156,10 +177,15 @@ export function styleFor(block: any, key: string): React.CSSProperties {
   if (f) s.fontFamily = f.family
   const w = block?.[`${key}Weight`]
   if (w) s.fontWeight = Number(w)
+  const sz = block?.[`${key}Size`]
+  if (sz) s.fontSize = `${sz}px`
   const c = block?.[`${key}Color`]
   if (c) s.color = c
   return s
 }
+
+// ระยะ gap ของ grid ภายใน section (ถ้าตั้งค่า)
+export const gapStyle = (a?: Appearance): React.CSSProperties => (a?.gap ? { gap: a.gap } : {})
 
 // alias เดิม (ใช้กับ heading)
 export const headingStyle = (block: any): React.CSSProperties => styleFor(block, 'heading')

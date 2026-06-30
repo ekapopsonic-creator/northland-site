@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
-import { appearanceFields, textStyleFields } from './shared'
+import { appearanceFields, textStyleFields, textField } from './shared'
+
+const COLOR_FIELD_PATH = '/components/admin/ColorField#ColorField'
 
 // ชุดสไตล์ข้อความที่ใช้บ่อย
 const styleEyebrowHeadingSub = textStyleFields([
@@ -344,6 +346,61 @@ export const CTABlock: Block = {
       { key: 'title', label: 'หัวข้อ (Title)' },
       { key: 'text', label: 'ข้อความ (Text)' },
     ]),
+    appearanceFields,
+  ],
+}
+
+export const ColumnsBlock: Block = {
+  slug: 'columns',
+  labels: { singular: { th: 'คอลัมน์ (จัด Layout)', en: 'Columns' }, plural: { th: 'คอลัมน์', en: 'Columns' } },
+  fields: [
+    heading('หัวข้อ (เว้นว่างได้)'),
+    {
+      name: 'cols',
+      type: 'array',
+      minRows: 1,
+      maxRows: 5,
+      label: { th: 'คอลัมน์ (เพิ่มได้ถึง 5)', en: 'Columns' },
+      labels: { singular: { th: 'คอลัมน์', en: 'Column' }, plural: { th: 'คอลัมน์', en: 'Columns' } },
+      fields: [
+        {
+          name: 'span',
+          type: 'number',
+          defaultValue: 1,
+          min: 1,
+          max: 5,
+          label: { th: 'สัดส่วนความกว้าง (1-5)', en: 'Width ratio' },
+          admin: { description: 'เลขมาก = กว้างกว่า (เช่น 2 กับ 1 = 2 ส่วนต่อ 1 ส่วน)' },
+        },
+        { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูป (เว้นว่างได้)', en: 'Image' } },
+        { name: 'imageUrl', type: 'text', label: { th: 'หรือลิงก์รูป (URL)', en: 'Or image URL' } },
+        { name: 'colHeading', type: 'text', localized: true, label: { th: 'หัวข้อในคอลัมน์', en: 'Heading' } },
+        { name: 'content', type: 'richText', localized: true, label: { th: 'เนื้อหา', en: 'Content' } },
+        textField('headingFont', 'หัวข้อ — ฟอนต์', '/components/admin/StyleSelects#FontSelectField'),
+        textField('headingColor', 'หัวข้อ — สี', COLOR_FIELD_PATH),
+        {
+          name: 'align',
+          type: 'select',
+          defaultValue: 'left',
+          label: { th: 'จัดข้อความ', en: 'Align' },
+          options: [
+            { label: { th: 'ซ้าย', en: 'Left' }, value: 'left' },
+            { label: { th: 'กึ่งกลาง', en: 'Center' }, value: 'center' },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'valign',
+      type: 'select',
+      defaultValue: 'top',
+      label: { th: 'จัดแนวตั้ง', en: 'Vertical align' },
+      options: [
+        { label: { th: 'บน', en: 'Top' }, value: 'top' },
+        { label: { th: 'กึ่งกลาง', en: 'Center' }, value: 'center' },
+      ],
+    },
+    styleHeadingOnly,
     appearanceFields,
   ],
 }

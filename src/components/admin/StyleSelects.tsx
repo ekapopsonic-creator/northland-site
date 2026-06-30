@@ -54,4 +54,55 @@ export const WeightSelectField: React.FC<{ path: string; field?: any }> = ({ pat
   )
 }
 
+const SIZES = ['12', '14', '16', '18', '20', '24', '28', '32', '36', '40', '48', '56', '64', '72']
+
+// ดรอปดาวน์ขนาดตัวอักษร (px) — เก็บค่าเป็น text
+export const SizeSelectField: React.FC<{ path: string; field?: any }> = ({ path, field }) => {
+  const { value, setValue } = useField<string>({ path })
+  return (
+    <div className="field-type" style={{ marginBottom: '1rem' }}>
+      <FieldLabel label={labelText(field)} path={path} />
+      <select value={value || ''} onChange={(e) => setValue(e.target.value)} style={selectStyle}>
+        <option value="">ค่าเริ่มต้น</option>
+        {SIZES.map((s) => (
+          <option key={s} value={s}>
+            {s} px
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+const SPACING = [
+  { v: '', l: 'ค่าเริ่มต้น' },
+  { v: '0', l: '0 (ไม่มี)' },
+  { v: '0.25rem', l: '4px (เล็กมาก)' },
+  { v: '0.5rem', l: '8px (เล็ก)' },
+  { v: '1rem', l: '16px' },
+  { v: '1.5rem', l: '24px' },
+  { v: '2rem', l: '32px' },
+  { v: '3rem', l: '48px' },
+  { v: '4rem', l: '64px' },
+  { v: '5rem', l: '80px' },
+  { v: '7rem', l: '112px (โปร่งมาก)' },
+]
+
+// ดรอปดาวน์ระยะห่าง (margin/padding/gap) — เก็บค่าเป็น text
+export const SpacingSelectField: React.FC<{ path: string; field?: any }> = ({ path, field }) => {
+  const { value, setValue } = useField<string>({ path })
+  return (
+    <div className="field-type" style={{ marginBottom: '1rem' }}>
+      <FieldLabel label={labelText(field)} path={path} />
+      <select value={value || ''} onChange={(e) => setValue(e.target.value)} style={selectStyle}>
+        {SPACING.map((s) => (
+          <option key={s.v} value={s.v}>
+            {s.l}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
 export default FontSelectField
