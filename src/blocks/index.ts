@@ -1,5 +1,17 @@
 import type { Block } from 'payload'
-import { appearanceFields, headingStyleFields } from './shared'
+import { appearanceFields, textStyleFields } from './shared'
+
+// ชุดสไตล์ข้อความที่ใช้บ่อย
+const styleEyebrowHeadingSub = textStyleFields([
+  { key: 'eyebrow', label: 'Eyebrow' },
+  { key: 'heading', label: 'หัวข้อ' },
+  { key: 'subtitle', label: 'คำอธิบาย' },
+])
+const styleEyebrowHeading = textStyleFields([
+  { key: 'eyebrow', label: 'Eyebrow' },
+  { key: 'heading', label: 'หัวข้อ' },
+])
+const styleHeadingOnly = textStyleFields([{ key: 'heading', label: 'หัวข้อ' }])
 
 const columnOptions = [
   { label: '1', value: '1' },
@@ -76,6 +88,12 @@ export const HeroBlock: Block = {
     { name: 'imageUrl', type: 'text', label: { th: 'หรือใส่ลิงก์รูป (URL)', en: 'Or image URL' }, admin: { description: 'ใช้แทนการอัปโหลด เช่น /wp/BG.jpg' } },
     buttonsField,
     { name: 'showSearch', type: 'checkbox', defaultValue: false, label: { th: 'แสดงกล่องค้นหาโครงการ', en: 'Show project search' } },
+    textStyleFields([
+      { key: 'eyebrow', label: 'Eyebrow' },
+      { key: 'title', label: 'หัวข้อใหญ่ (Title)' },
+      { key: 'tagline', label: 'ข้อความรอง (Tagline)' },
+      { key: 'lead', label: 'ย่อหน้า (Lead)' },
+    ]),
     appearanceFields,
   ],
 }
@@ -151,7 +169,7 @@ export const FeaturedProjectsBlock: Block = {
       label: { th: 'จำนวนคอลัมน์', en: 'Columns' },
       options: columnOptions,
     },
-    headingStyleFields,
+    styleEyebrowHeadingSub,
     appearanceFields,
   ],
 }
@@ -182,7 +200,7 @@ export const FeaturesBlock: Block = {
         { name: 'text', type: 'textarea', localized: true, label: { th: 'รายละเอียด', en: 'Text' } },
       ],
     },
-    headingStyleFields,
+    styleEyebrowHeadingSub,
     appearanceFields,
   ],
 }
@@ -214,7 +232,7 @@ export const RichTextBlock: Block = {
         { label: { th: 'ปกติ', en: 'Normal' }, value: 'normal' },
       ],
     },
-    headingStyleFields,
+    styleEyebrowHeading,
     appearanceFields,
   ],
 }
@@ -239,7 +257,7 @@ export const ImageTextBlock: Block = {
     heading('หัวข้อ'),
     { name: 'content', type: 'richText', localized: true, label: { th: 'เนื้อหา', en: 'Content' } },
     buttonsField,
-    headingStyleFields,
+    styleEyebrowHeading,
     appearanceFields,
   ],
 }
@@ -257,7 +275,7 @@ export const GalleryBlock: Block = {
       options: columnOptions,
     },
     bulkImagesField,
-    headingStyleFields,
+    styleHeadingOnly,
     appearanceFields,
   ],
 }
@@ -286,7 +304,7 @@ export const SliderBlock: Block = {
         { label: { th: 'สูง (เต็มจอ)', en: 'Tall' }, value: 'lg' },
       ],
     },
-    headingStyleFields,
+    styleHeadingOnly,
     appearanceFields,
   ],
 }
@@ -310,7 +328,7 @@ export const TimelineBlock: Block = {
         { name: 'text', type: 'textarea', localized: true, label: { th: 'รายละเอียด', en: 'Text' } },
       ],
     },
-    headingStyleFields,
+    styleEyebrowHeadingSub,
     appearanceFields,
   ],
 }
@@ -322,7 +340,10 @@ export const CTABlock: Block = {
     { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อ', en: 'Title' } },
     { name: 'text', type: 'textarea', localized: true, label: { th: 'ข้อความ', en: 'Text' } },
     buttonsField,
-    headingStyleFields,
+    textStyleFields([
+      { key: 'title', label: 'หัวข้อ (Title)' },
+      { key: 'text', label: 'ข้อความ (Text)' },
+    ]),
     appearanceFields,
   ],
 }

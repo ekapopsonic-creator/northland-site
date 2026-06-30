@@ -176,11 +176,20 @@ export interface Page {
                 }[]
               | null;
             showSearch?: boolean | null;
+            eyebrowFont?: string | null;
+            eyebrowWeight?: string | null;
+            eyebrowColor?: string | null;
+            titleFont?: string | null;
+            titleWeight?: string | null;
+            titleColor?: string | null;
+            taglineFont?: string | null;
+            taglineWeight?: string | null;
+            taglineColor?: string | null;
+            leadFont?: string | null;
+            leadWeight?: string | null;
+            leadColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -201,9 +210,6 @@ export interface Page {
               | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -227,34 +233,17 @@ export interface Page {
             ctaLabel?: string | null;
             ctaUrl?: string | null;
             columns?: ('1' | '2' | '3' | '4' | '5') | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            eyebrowFont?: string | null;
+            eyebrowWeight?: string | null;
+            eyebrowColor?: string | null;
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
+            subtitleFont?: string | null;
+            subtitleWeight?: string | null;
+            subtitleColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -278,34 +267,17 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            eyebrowFont?: string | null;
+            eyebrowWeight?: string | null;
+            eyebrowColor?: string | null;
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
+            subtitleFont?: string | null;
+            subtitleWeight?: string | null;
+            subtitleColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -333,34 +305,14 @@ export interface Page {
             } | null;
             align?: ('left' | 'center') | null;
             width?: ('narrow' | 'normal') | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            eyebrowFont?: string | null;
+            eyebrowWeight?: string | null;
+            eyebrowColor?: string | null;
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -403,34 +355,14 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            eyebrowFont?: string | null;
+            eyebrowWeight?: string | null;
+            eyebrowColor?: string | null;
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -445,34 +377,11 @@ export interface Page {
              * กดเลือกได้หลายรูปในครั้งเดียว
              */
             imageList?: (number | Media)[] | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -489,34 +398,11 @@ export interface Page {
             imageList?: (number | Media)[] | null;
             autoplay?: boolean | null;
             height?: ('sm' | 'md' | 'lg') | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -536,34 +422,17 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
+            eyebrowFont?: string | null;
+            eyebrowWeight?: string | null;
+            eyebrowColor?: string | null;
+            headingFont?: string | null;
+            headingWeight?: string | null;
             headingColor?: string | null;
+            subtitleFont?: string | null;
+            subtitleWeight?: string | null;
+            subtitleColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -585,34 +454,14 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            headingFont?:
-              | (
-                  | ''
-                  | 'prompt'
-                  | 'sarabun'
-                  | 'kanit'
-                  | 'athiti'
-                  | 'anuphan'
-                  | 'ibm-thai'
-                  | 'montserrat'
-                  | 'barlow'
-                  | 'zalando'
-                  | 'noto-thai'
-                  | 'cormorant'
-                  | 'playfair'
-                  | 'noto-serif-thai'
-                )
-              | null;
-            headingWeight?: ('' | '400' | '500' | '600' | '700' | '800') | null;
-            /**
-             * เช่น #00AEEF
-             */
-            headingColor?: string | null;
+            titleFont?: string | null;
+            titleWeight?: string | null;
+            titleColor?: string | null;
+            textFont?: string | null;
+            textWeight?: string | null;
+            textColor?: string | null;
             background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
             paddingY?: ('sm' | 'md' | 'lg') | null;
-            /**
-             * รหัสสี HEX เช่น #f0f8ff
-             */
             bgColor?: string | null;
             textOnDark?: boolean | null;
             bgImage?: (number | null) | Media;
@@ -1176,6 +1025,18 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               showSearch?: T;
+              eyebrowFont?: T;
+              eyebrowWeight?: T;
+              eyebrowColor?: T;
+              titleFont?: T;
+              titleWeight?: T;
+              titleColor?: T;
+              taglineFont?: T;
+              taglineWeight?: T;
+              taglineColor?: T;
+              leadFont?: T;
+              leadWeight?: T;
+              leadColor?: T;
               background?: T;
               paddingY?: T;
               bgColor?: T;
@@ -1214,9 +1075,15 @@ export interface PagesSelect<T extends boolean = true> {
               ctaLabel?: T;
               ctaUrl?: T;
               columns?: T;
+              eyebrowFont?: T;
+              eyebrowWeight?: T;
+              eyebrowColor?: T;
               headingFont?: T;
               headingWeight?: T;
               headingColor?: T;
+              subtitleFont?: T;
+              subtitleWeight?: T;
+              subtitleColor?: T;
               background?: T;
               paddingY?: T;
               bgColor?: T;
@@ -1240,9 +1107,15 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              eyebrowFont?: T;
+              eyebrowWeight?: T;
+              eyebrowColor?: T;
               headingFont?: T;
               headingWeight?: T;
               headingColor?: T;
+              subtitleFont?: T;
+              subtitleWeight?: T;
+              subtitleColor?: T;
               background?: T;
               paddingY?: T;
               bgColor?: T;
@@ -1259,6 +1132,9 @@ export interface PagesSelect<T extends boolean = true> {
               content?: T;
               align?: T;
               width?: T;
+              eyebrowFont?: T;
+              eyebrowWeight?: T;
+              eyebrowColor?: T;
               headingFont?: T;
               headingWeight?: T;
               headingColor?: T;
@@ -1287,6 +1163,9 @@ export interface PagesSelect<T extends boolean = true> {
                     style?: T;
                     id?: T;
                   };
+              eyebrowFont?: T;
+              eyebrowWeight?: T;
+              eyebrowColor?: T;
               headingFont?: T;
               headingWeight?: T;
               headingColor?: T;
@@ -1348,9 +1227,15 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              eyebrowFont?: T;
+              eyebrowWeight?: T;
+              eyebrowColor?: T;
               headingFont?: T;
               headingWeight?: T;
               headingColor?: T;
+              subtitleFont?: T;
+              subtitleWeight?: T;
+              subtitleColor?: T;
               background?: T;
               paddingY?: T;
               bgColor?: T;
@@ -1372,9 +1257,12 @@ export interface PagesSelect<T extends boolean = true> {
                     style?: T;
                     id?: T;
                   };
-              headingFont?: T;
-              headingWeight?: T;
-              headingColor?: T;
+              titleFont?: T;
+              titleWeight?: T;
+              titleColor?: T;
+              textFont?: T;
+              textWeight?: T;
+              textColor?: T;
               background?: T;
               paddingY?: T;
               bgColor?: T;
@@ -1730,25 +1618,10 @@ export interface SiteSetting {
    * โลโก้สีขาว/สว่าง สำหรับวางบนพื้นหลังสีเข้ม — เว้นว่าง = ใช้โลโก้ตัวอักษรขาว
    */
   logoDark?: (number | null) | Media;
-  /**
-   * รหัสสี HEX เช่น #00AEEF (สีฟ้า North Sea ของ Northland)
-   */
-  brandColor?: string | null;
-  /**
-   * รหัสสี HEX เช่น #03A1D1
-   */
   brandColorDark?: string | null;
-  /**
-   * HEX
-   */
+  brandColor?: string | null;
   secondaryColor1?: string | null;
-  /**
-   * HEX
-   */
   secondaryColor2?: string | null;
-  /**
-   * HEX
-   */
   secondaryColor3?: string | null;
   bodyFont?:
     | (
@@ -1801,8 +1674,8 @@ export interface SiteSetting {
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
   logoDark?: T;
-  brandColor?: T;
   brandColorDark?: T;
+  brandColor?: T;
   secondaryColor1?: T;
   secondaryColor2?: T;
   secondaryColor3?: T;

@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 import { anyone, isAdminOrEditor } from '../access'
 import { bodyFontOptions, displayFontOptions } from '../lib/fonts'
+import { colorField } from '../blocks/shared'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -37,44 +38,14 @@ export const SiteSettings: GlobalConfig = {
               label: { th: 'โลโก้สำหรับพื้นเข้ม (เช่น footer)', en: 'Logo (for dark background)' },
               admin: { description: 'โลโก้สีขาว/สว่าง สำหรับวางบนพื้นหลังสีเข้ม — เว้นว่าง = ใช้โลโก้ตัวอักษรขาว' },
             },
-            {
-              name: 'brandColor',
-              type: 'text',
-              defaultValue: '#00AEEF',
-              label: { th: 'สีหลักของเว็บ (Brand Color)', en: 'Brand color' },
-              admin: { description: 'รหัสสี HEX เช่น #00AEEF (สีฟ้า North Sea ของ Northland)' },
-            },
-            {
-              name: 'brandColorDark',
-              type: 'text',
-              defaultValue: '#03A1D1',
-              label: { th: 'สีหลักเข้ม (ปุ่ม hover / accent)', en: 'Brand color (dark)' },
-              admin: { description: 'รหัสสี HEX เช่น #03A1D1' },
-            },
+            colorField('brandColorDark', 'สีหลัก-กรมท่า (ปุ่ม / โลโก้ / หัวข้อ)', '#1E3644'),
+            colorField('brandColor', 'สี accent-ฟ้า (ราคา / ลิงก์)', '#00ADEF'),
             {
               type: 'row',
               fields: [
-                {
-                  name: 'secondaryColor1',
-                  type: 'text',
-                  defaultValue: '#58595B',
-                  label: { th: 'Secondary 1', en: 'Secondary 1' },
-                  admin: { description: 'HEX' },
-                },
-                {
-                  name: 'secondaryColor2',
-                  type: 'text',
-                  defaultValue: '#C9A24B',
-                  label: { th: 'Secondary 2', en: 'Secondary 2' },
-                  admin: { description: 'HEX' },
-                },
-                {
-                  name: 'secondaryColor3',
-                  type: 'text',
-                  defaultValue: '#2E9E5B',
-                  label: { th: 'Secondary 3', en: 'Secondary 3' },
-                  admin: { description: 'HEX' },
-                },
+                colorField('secondaryColor1', 'Secondary 1', '#00ADEF'),
+                colorField('secondaryColor2', 'Secondary 2', '#FB6A19'),
+                colorField('secondaryColor3', 'Secondary 3', '#02A7E5'),
               ],
             },
             {

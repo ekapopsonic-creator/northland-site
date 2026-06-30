@@ -1,7 +1,52 @@
 import type { Field } from 'payload'
-import { displayFontOptions } from '../lib/fonts'
+import { ALL_FONTS } from '../lib/fonts'
+import { mediaUrl } from '../lib/labels'
 
-// ฟิลด์ตั้งค่า layout ที่ทุก section block ใช้ร่วมกัน — ทีมปรับ "พื้นหลัง / ระยะห่าง / สีพื้นเฉพาะส่วน" ได้เอง
+const COLOR_FIELD = '/components/admin/ColorField#ColorField'
+
+// ช่องสีที่มีแผงสี (color chart) + ใส่รหัส HEX
+export function colorField(name: string, th: string, defaultValue?: string): Field {
+  return {
+    name,
+    type: 'text',
+    defaultValue,
+    label: { th, en: th },
+    admin: { components: { Field: COLOR_FIELD } },
+  } as Field
+}
+
+const FONT_FIELD = '/components/admin/StyleSelects#FontSelectField'
+const WEIGHT_FIELD = '/components/admin/StyleSelects#WeightSelectField'
+
+// ฟอนต์/น้ำหนัก เก็บเป็น text (ไม่สร้าง enum) แต่ใช้ dropdown component — เลี่ยง drizzle push interactive
+// กลุ่มตั้งค่าสไตล์ตัวอักษร (ฟอนต์/น้ำหนัก/สี) ของแต่ละชิ้นข้อความในบล็อก
+export function textStyleFields(elements: { key: string; label: string }[]): Field {
+  return {
+    type: 'collapsible',
+    label: { th: '🎨 สไตล์ตัวอักษร (ฟอนต์ / น้ำหนัก / สี)', en: 'Text styles' },
+    admin: { initCollapsed: true },
+    fields: elements.map((el) => ({
+      type: 'row',
+      fields: [
+        {
+          name: `${el.key}Font`,
+          type: 'text',
+          label: { th: `${el.label} — ฟอนต์`, en: `${el.label} font` },
+          admin: { components: { Field: FONT_FIELD } },
+        },
+        {
+          name: `${el.key}Weight`,
+          type: 'text',
+          label: { th: 'น้ำหนัก', en: 'Weight' },
+          admin: { components: { Field: WEIGHT_FIELD } },
+        },
+        colorField(`${el.key}Color`, 'สี'),
+      ],
+    })) as Field[],
+  } as Field
+}
+
+// ฟิลด์ตั้งค่าพื้นหลัง/ระยะห่างของ section
 export const appearanceFields: Field = {
   type: 'collapsible',
   label: { th: '⚙ ตั้งค่า Layout & พื้นหลังของ section นี้', en: 'Section layout & background' },
@@ -38,12 +83,10 @@ export const appearanceFields: Field = {
       ],
     },
     {
-      name: 'bgColor',
-      type: 'text',
-      label: { th: 'สีพื้นหลัง (กำหนดเอง)', en: 'Custom background color' },
+      ...(colorField('bgColor', 'สีพื้นหลัง (กำหนดเอง)') as any),
       admin: {
-        description: 'รหัสสี HEX เช่น #f0f8ff',
-        condition: (_, sib) => sib?.background === 'custom',
+        components: { Field: COLOR_FIELD },
+        condition: (_: any, sib: any) => sib?.background === 'custom',
       },
     },
     {
@@ -51,58 +94,17 @@ export const appearanceFields: Field = {
       type: 'checkbox',
       defaultValue: false,
       label: { th: 'ใช้ตัวอักษรสีขาว (พื้นเข้ม)', en: 'White text' },
-      admin: { condition: (_, sib) => sib?.background === 'custom' || sib?.background === 'image' },
+      admin: { condition: (_: any, sib: any) => sib?.background === 'custom' || sib?.background === 'image' },
     },
     {
       name: 'bgImage',
       type: 'upload',
       relationTo: 'media',
       label: { th: 'รูปพื้นหลัง', en: 'Background image' },
-      admin: { condition: (_, sib) => sib?.background === 'image' },
+      admin: { condition: (_: any, sib: any) => sib?.background === 'image' },
     },
   ],
 }
-
-// ตัวเลือกจัดสไตล์หัวข้อ (ฟอนต์ / น้ำหนัก / สี)
-export const headingStyleFields: Field = {
-  type: 'collapsible',
-  label: { th: '🎨 สไตล์หัวข้อ (ฟอนต์ / น้ำหนัก / สี)', en: 'Heading style' },
-  admin: { initCollapsed: true },
-  fields: [
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'headingFont',
-          type: 'select',
-          label: { th: 'ฟอนต์หัวข้อ', en: 'Heading font' },
-          options: [{ label: { th: 'ค่าเริ่มต้น', en: 'Default' }, value: '' }, ...displayFontOptions],
-        },
-        {
-          name: 'headingWeight',
-          type: 'select',
-          label: { th: 'น้ำหนัก', en: 'Weight' },
-          options: [
-            { label: { th: 'ค่าเริ่มต้น', en: 'Default' }, value: '' },
-            { label: '400', value: '400' },
-            { label: '500', value: '500' },
-            { label: '600', value: '600' },
-            { label: '700', value: '700' },
-            { label: '800', value: '800' },
-          ],
-        },
-        {
-          name: 'headingColor',
-          type: 'text',
-          label: { th: 'สีหัวข้อ (HEX)', en: 'Heading color' },
-          admin: { description: 'เช่น #00AEEF' },
-        },
-      ],
-    },
-  ],
-}
-
-import { ALL_FONTS } from '../lib/fonts'
 
 export type Appearance = {
   background?: 'none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image'
@@ -112,15 +114,6 @@ export type Appearance = {
   textOnDark?: boolean
 }
 
-export type HeadingStyle = {
-  headingFont?: string
-  headingWeight?: string
-  headingColor?: string
-}
-
-import { mediaUrl } from '../lib/labels'
-
-// แปลงค่า appearance → style ของ <section>
 export function sectionStyle(a?: Appearance): React.CSSProperties {
   const pad = { sm: '2.5rem', md: '4.5rem', lg: '7rem' }[a?.paddingY || 'md']
   const style: React.CSSProperties = { paddingTop: pad, paddingBottom: pad }
@@ -156,14 +149,17 @@ export function sectionStyle(a?: Appearance): React.CSSProperties {
   return style
 }
 
-// แปลงค่าสไตล์หัวข้อ → style
-export function headingStyle(h?: HeadingStyle): React.CSSProperties {
-  const style: React.CSSProperties = {}
-  if (h?.headingFont) {
-    const f = ALL_FONTS.find((x) => x.value === h.headingFont)
-    if (f) style.fontFamily = f.family
-  }
-  if (h?.headingWeight) style.fontWeight = Number(h.headingWeight)
-  if (h?.headingColor) style.color = h.headingColor
-  return style
+// คืน CSS style ของชิ้นข้อความตาม prefix (eyebrow/title/heading/tagline/lead/subtitle/text)
+export function styleFor(block: any, key: string): React.CSSProperties {
+  const s: React.CSSProperties = {}
+  const f = ALL_FONTS.find((x) => x.value === block?.[`${key}Font`])
+  if (f) s.fontFamily = f.family
+  const w = block?.[`${key}Weight`]
+  if (w) s.fontWeight = Number(w)
+  const c = block?.[`${key}Color`]
+  if (c) s.color = c
+  return s
 }
+
+// alias เดิม (ใช้กับ heading)
+export const headingStyle = (block: any): React.CSSProperties => styleFor(block, 'heading')

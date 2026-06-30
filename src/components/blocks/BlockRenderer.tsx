@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { sectionStyle, headingStyle, type Appearance } from '@/blocks/shared'
+import { sectionStyle, headingStyle, styleFor, type Appearance } from '@/blocks/shared'
 import { mediaUrl } from '@/lib/labels'
 import { ProjectCard } from '@/components/ProjectCard'
 import { HeroSearch } from '@/components/HeroSearch'
@@ -69,10 +69,10 @@ export function BlockRenderer({
               >
                 <div className="container">
                   <div className="hero-inner">
-                    {block.eyebrow ? <p className="hero-eyebrow">{block.eyebrow}</p> : null}
-                    <h1 className="hero-title">{block.title}</h1>
-                    {block.tagline ? <p className="hero-tagline">{block.tagline}</p> : null}
-                    {block.lead ? <p className="hero-lead">{block.lead}</p> : null}
+                    {block.eyebrow ? <p className="hero-eyebrow" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
+                    <h1 className="hero-title" style={styleFor(block, 'title')}>{block.title}</h1>
+                    {block.tagline ? <p className="hero-tagline" style={styleFor(block, 'tagline')}>{block.tagline}</p> : null}
+                    {block.lead ? <p className="hero-lead" style={styleFor(block, 'lead')}>{block.lead}</p> : null}
                     <Buttons buttons={block.buttons} />
                   </div>
                   {block.showSearch ? <HeroSearch /> : null}
@@ -103,9 +103,9 @@ export function BlockRenderer({
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
-                  {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
+                  {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
-                  {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
+                  {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
                   <div className="project-grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
                     {list.map((p) => (
                       <ProjectCard key={p.id} project={p} />
@@ -128,9 +128,9 @@ export function BlockRenderer({
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
-                  {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
+                  {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
-                  {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
+                  {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
                   <div className="features" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
                     {(block.items || []).map((f: any, j: number) => (
                       <div className="feature" key={f.id || j}>
@@ -155,7 +155,7 @@ export function BlockRenderer({
                     textAlign: block.align === 'center' ? 'center' : undefined,
                   }}
                 >
-                  {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
+                  {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.content ? (
                     <div style={{ lineHeight: 1.9 }}>
@@ -179,7 +179,7 @@ export function BlockRenderer({
                       ) : null}
                     </div>
                     <div style={{ direction: 'ltr' }}>
-                      {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
+                      {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                       {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                       {block.content ? <RichText data={block.content} /> : null}
                       <Buttons buttons={block.buttons} />
@@ -224,9 +224,9 @@ export function BlockRenderer({
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
-                  {block.eyebrow ? <p className="section-tag">{block.eyebrow}</p> : null}
+                  {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
-                  {block.subtitle ? <p className="section-subtitle">{block.subtitle}</p> : null}
+                  {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
                   <div className="timeline">
                     {(block.items || []).map((t: any, j: number) => (
                       <div className="timeline-item" key={t.id || j}>
@@ -244,8 +244,8 @@ export function BlockRenderer({
             return (
               <section key={key} className="cta-band" style={a.paddingY ? sectionStyle(a) : undefined}>
                 <div className="container">
-                  <h2 style={headingStyle(block)}>{block.title}</h2>
-                  {block.text ? <p>{block.text}</p> : null}
+                  <h2 style={styleFor(block, 'title')}>{block.title}</h2>
+                  {block.text ? <p style={styleFor(block, 'text')}>{block.text}</p> : null}
                   {(block.buttons || []).length > 0 ? (
                     <div style={{ marginTop: '1.5rem' }}>
                       {block.buttons.map((b: any, j: number) => (
