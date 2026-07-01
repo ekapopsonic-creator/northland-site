@@ -389,7 +389,7 @@ export const ColumnsBlock: Block = {
   slug: 'columns',
   labels: { singular: { th: 'คอลัมน์ (จัด Layout)', en: 'Columns' }, plural: { th: 'คอลัมน์', en: 'Columns' } },
   fields: [
-    heading('หัวข้อ (เว้นว่างได้)'),
+    { name: 'heading', type: 'text', label: { th: 'หัวข้อ (เว้นว่างได้)', en: 'Heading' } },
     {
       name: 'cols',
       type: 'array',
@@ -409,8 +409,8 @@ export const ColumnsBlock: Block = {
         },
         { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูป (เว้นว่างได้)', en: 'Image' } },
         { name: 'imageUrl', type: 'text', label: { th: 'หรือลิงก์รูป (URL)', en: 'Or image URL' } },
-        { name: 'colHeading', type: 'text', localized: true, label: { th: 'หัวข้อในคอลัมน์', en: 'Heading' } },
-        { name: 'content', type: 'richText', localized: true, label: { th: 'เนื้อหา', en: 'Content' } },
+        { name: 'colHeading', type: 'text', label: { th: 'หัวข้อในคอลัมน์', en: 'Heading' } },
+        { name: 'content', type: 'richText', label: { th: 'เนื้อหา', en: 'Content' } },
         textField('headingFont', 'หัวข้อ — ฟอนต์', '/components/admin/StyleSelects#FontSelectField'),
         textField('headingColor', 'หัวข้อ — สี', COLOR_FIELD_PATH),
         {
@@ -465,6 +465,7 @@ export const allBlocks: Block[] = [
   FeaturesBlock,
   RichTextBlock,
   ImageTextBlock,
+  ColumnsBlock,
   GalleryBlock,
   SliderBlock,
   TimelineBlock,

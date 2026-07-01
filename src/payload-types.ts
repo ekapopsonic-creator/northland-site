@@ -421,6 +421,56 @@ export interface Page {
           }
         | {
             heading?: string | null;
+            cols?:
+              | {
+                  /**
+                   * เลขมาก = กว้างกว่า (เช่น 2 กับ 1 = 2 ส่วนต่อ 1 ส่วน)
+                   */
+                  span?: number | null;
+                  image?: (number | null) | Media;
+                  imageUrl?: string | null;
+                  colHeading?: string | null;
+                  content?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  headingFont?: string | null;
+                  headingColor?: string | null;
+                  align?: ('left' | 'center') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            valign?: ('top' | 'center') | null;
+            headingFont?: string | null;
+            headingWeight?: string | null;
+            headingSize?: string | null;
+            headingColor?: string | null;
+            background?: ('none' | 'soft' | 'brand' | 'dark' | 'custom' | 'image') | null;
+            paddingY?: ('sm' | 'md' | 'lg') | null;
+            bgColor?: string | null;
+            textOnDark?: boolean | null;
+            bgImage?: (number | null) | Media;
+            marginTop?: string | null;
+            marginBottom?: string | null;
+            paddingX?: string | null;
+            gap?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'columns';
+          }
+        | {
+            heading?: string | null;
             columns?: ('1' | '2' | '3' | '4' | '5') | null;
             /**
              * กดเลือกได้หลายรูปในครั้งเดียว
@@ -1276,6 +1326,40 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrowWeight?: T;
               eyebrowSize?: T;
               eyebrowColor?: T;
+              headingFont?: T;
+              headingWeight?: T;
+              headingSize?: T;
+              headingColor?: T;
+              background?: T;
+              paddingY?: T;
+              bgColor?: T;
+              textOnDark?: T;
+              bgImage?: T;
+              marginTop?: T;
+              marginBottom?: T;
+              paddingX?: T;
+              gap?: T;
+              id?: T;
+              blockName?: T;
+            };
+        columns?:
+          | T
+          | {
+              heading?: T;
+              cols?:
+                | T
+                | {
+                    span?: T;
+                    image?: T;
+                    imageUrl?: T;
+                    colHeading?: T;
+                    content?: T;
+                    headingFont?: T;
+                    headingColor?: T;
+                    align?: T;
+                    id?: T;
+                  };
+              valign?: T;
               headingFont?: T;
               headingWeight?: T;
               headingSize?: T;
