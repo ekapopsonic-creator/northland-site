@@ -86,8 +86,30 @@ export const HeroBlock: Block = {
     { name: 'title', type: 'text', required: true, localized: true, label: { th: 'หัวข้อใหญ่', en: 'Title' } },
     { name: 'tagline', type: 'text', localized: true, label: { th: 'ข้อความรอง', en: 'Tagline' } },
     { name: 'lead', type: 'textarea', localized: true, label: { th: 'ย่อหน้าแนะนำ', en: 'Lead text' } },
-    { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูปพื้นหลัง', en: 'Background image' } },
-    { name: 'imageUrl', type: 'text', label: { th: 'หรือใส่ลิงก์รูป (URL)', en: 'Or image URL' }, admin: { description: 'ใช้แทนการอัปโหลด เช่น /wp/BG.jpg' } },
+    {
+      name: 'bgImages',
+      type: 'upload',
+      relationTo: 'media',
+      hasMany: true,
+      label: { th: 'รูปพื้นหลัง (สไลด์หลายรูป — เลือกได้หลายรูป)', en: 'Background images (bulk)' },
+      admin: { description: 'เลือกหลายรูปเพื่อทำสไลด์โชว์ · ถ้าไม่เลือก จะใช้รูปเดี่ยว/ลิงก์ด้านล่างแทน' },
+    },
+    { name: 'image', type: 'upload', relationTo: 'media', label: { th: 'รูปพื้นหลังเดี่ยว (fallback)', en: 'Background image' } },
+    { name: 'imageUrl', type: 'text', label: { th: 'หรือใส่ลิงก์รูป (URL, fallback)', en: 'Or image URL' }, admin: { description: 'ใช้เมื่อไม่มีรูปสไลด์ เช่น /wp/BG.jpg' } },
+    {
+      type: 'row',
+      fields: [
+        { name: 'heroAutoplay', type: 'checkbox', defaultValue: true, label: { th: 'เลื่อนสไลด์อัตโนมัติ', en: 'Autoplay' } },
+        { name: 'heroInterval', type: 'number', defaultValue: 5, min: 1, max: 30, label: { th: 'เปลี่ยนภาพทุกกี่วินาที', en: 'Interval (sec)' } },
+        {
+          name: 'heroTransition',
+          type: 'text',
+          defaultValue: 'fade',
+          label: { th: 'เอฟเฟกต์เปลี่ยนภาพ', en: 'Transition' },
+          admin: { description: 'พิมพ์: fade (จางเข้า-ออก) หรือ slide (เลื่อน)' },
+        },
+      ],
+    },
     buttonsField,
     { name: 'showSearch', type: 'checkbox', defaultValue: false, label: { th: 'แสดงกล่องค้นหาโครงการ', en: 'Show project search' } },
     textStyleFields([
@@ -120,6 +142,18 @@ export const StatsBlock: Block = {
   ],
 }
 
+const headingAlignField: any = {
+  name: 'headingAlign',
+  type: 'select',
+  defaultValue: 'left',
+  label: { th: 'จัดตำแหน่งหัวข้อ (Eyebrow/Heading/Subtitle)', en: 'Heading alignment' },
+  options: [
+    { label: { th: 'ซ้าย', en: 'Left' }, value: 'left' },
+    { label: { th: 'กึ่งกลาง', en: 'Center' }, value: 'center' },
+    { label: { th: 'ขวา', en: 'Right' }, value: 'right' },
+  ],
+}
+
 export const FeaturedProjectsBlock: Block = {
   slug: 'featuredProjects',
   labels: { singular: { th: 'โครงการเด่น', en: 'Featured projects' }, plural: { th: 'โครงการเด่น', en: 'Featured projects' } },
@@ -127,6 +161,7 @@ export const FeaturedProjectsBlock: Block = {
     eyebrow,
     heading('หัวข้อ'),
     subtitle,
+    headingAlignField,
     {
       name: 'source',
       type: 'select',

@@ -159,11 +159,21 @@ export interface Page {
             title: string;
             tagline?: string | null;
             lead?: string | null;
+            /**
+             * เลือกหลายรูปเพื่อทำสไลด์โชว์ · ถ้าไม่เลือก จะใช้รูปเดี่ยว/ลิงก์ด้านล่างแทน
+             */
+            bgImages?: (number | Media)[] | null;
             image?: (number | null) | Media;
             /**
-             * ใช้แทนการอัปโหลด เช่น /wp/BG.jpg
+             * ใช้เมื่อไม่มีรูปสไลด์ เช่น /wp/BG.jpg
              */
             imageUrl?: string | null;
+            heroAutoplay?: boolean | null;
+            heroInterval?: number | null;
+            /**
+             * พิมพ์: fade (จางเข้า-ออก) หรือ slide (เลื่อน)
+             */
+            heroTransition?: string | null;
             buttons?:
               | {
                   label: string;
@@ -233,6 +243,7 @@ export interface Page {
             eyebrow?: string | null;
             heading?: string | null;
             subtitle?: string | null;
+            headingAlign?: ('left' | 'center' | 'right') | null;
             source?: ('manual' | 'featured' | 'latest') | null;
             /**
              * ค้นหาแล้วเลือกโครงการที่ต้องการ — เรียงลำดับตามที่เลือก
@@ -1075,8 +1086,12 @@ export interface PagesSelect<T extends boolean = true> {
               title?: T;
               tagline?: T;
               lead?: T;
+              bgImages?: T;
               image?: T;
               imageUrl?: T;
+              heroAutoplay?: T;
+              heroInterval?: T;
+              heroTransition?: T;
               buttons?:
                 | T
                 | {
@@ -1142,6 +1157,7 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               heading?: T;
               subtitle?: T;
+              headingAlign?: T;
               source?: T;
               projects?: T;
               count?: T;

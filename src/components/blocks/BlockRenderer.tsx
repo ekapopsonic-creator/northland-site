@@ -6,6 +6,7 @@ import { mediaUrl } from '@/lib/labels'
 import { ProjectCard } from '@/components/ProjectCard'
 import { HeroSearch } from '@/components/HeroSearch'
 import { Slider } from '@/components/blocks/Slider'
+import { HeroBackground } from '@/components/blocks/HeroBackground'
 import type { Project } from '@/payload-types'
 
 // แปลง hasMany upload (imageList) → array ของ url
@@ -55,19 +56,29 @@ export function BlockRenderer({
 
         switch (block.blockType) {
           case 'hero': {
-            const img = block.imageUrl || mediaUrl(block.image)
+            const slideImgs = imageUrls(block.bgImages).map((x) => x.url)
+            const single = block.imageUrl || mediaUrl(block.image)
+            const bgList = slideImgs.length ? slideImgs : single ? [single] : []
+            const hasBg = bgList.length > 0
             return (
               <section
                 key={key}
                 className="hero"
-                style={{
-                  ...sectionStyle(a),
-                  ...(img
-                    ? { backgroundImage: `linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }
-                    : {}),
-                }}
+                style={{ ...sectionStyle(a), position: 'relative', overflow: 'hidden' }}
               >
-                <div className="container">
+                {hasBg ? (
+                  <>
+                    <HeroBackground
+                      images={bgList}
+                      autoplay={block.heroAutoplay !== false}
+                      interval={block.heroInterval || 5}
+                      transition={block.heroTransition === 'slide' ? 'slide' : 'fade'}
+                    />
+                    {/* overlay ให้ตัวอักษรอ่านง่าย */}
+                    <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'rgba(0,0,0,0.25)' }} />
+                  </>
+                ) : null}
+                <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                   <div className="hero-inner">
                     {block.eyebrow ? <p className="hero-eyebrow" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                     <h1 className="hero-title" style={styleFor(block, 'title')}>{block.title}</h1>
@@ -103,9 +114,11 @@ export function BlockRenderer({
             return (
               <section key={key} className="section" style={sectionStyle(a)}>
                 <div className="container">
-                  {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
-                  {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
-                  {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
+                  <div style={{ textAlign: (block.headingAlign as any) || 'left' }}>
+                    {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
+                    {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
+                    {block.subtitle ? <p className="section-subtitle" style={styleFor(block, 'subtitle')}>{block.subtitle}</p> : null}
+                  </div>
                   <div className="project-grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, ...gapStyle(a) }}>
                     {list.map((p) => (
                       <ProjectCard key={p.id} project={p} />

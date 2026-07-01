@@ -72,7 +72,9 @@ export async function resolveBlockProjects(blocks: any[]): Promise<any[]> {
       if (b?.blockType !== 'featuredProjects') return b
       if (b.source === 'manual') {
         const ids = (b.projects || []).map((p: any) => (typeof p === 'object' ? p.id : p))
-        return { ...b, _projects: await getProjectsByIds(ids) }
+        const picked = await getProjectsByIds(ids)
+        // ยังไม่ได้เลือกโครงการ → fallback ไปโครงการแนะนำ
+        return { ...b, _projects: picked.length ? picked : await getFeaturedProjects() }
       }
       if (b.source === 'latest') return { ...b, _projects: await getLatestProjects(b.count || 6) }
       return { ...b, _projects: await getFeaturedProjects() }
