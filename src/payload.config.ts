@@ -107,25 +107,25 @@ export default buildConfig({
       }
     : {}),
   plugins: [
-    ...(process.env.S3_BUCKET
-      ? [
-          s3Storage({
-            collections: {
-              media: true,
-              'cv-files': true,
-            },
-            bucket: process.env.S3_BUCKET,
-            config: {
-              endpoint: process.env.S3_ENDPOINT,
-              region: 'auto',
-              credentials: {
-                accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
-              },
-              forcePathStyle: true,
-            },
-          }),
-        ]
-      : []),
+    // S3 storage อยู่ใน config เสมอ (ใช้ enabled แทนการตัด plugin ออก) —
+    // กัน importMap หลุด S3ClientUploadHandler เวลา regenerate โดยไม่ได้ตั้ง S3 env
+    // (เคยทำแอดมิน 500 บน Vercel มาแล้ว) เปิดใช้จริงเมื่อมี S3_BUCKET เท่านั้น
+    s3Storage({
+      enabled: Boolean(process.env.S3_BUCKET),
+      collections: {
+        media: true,
+        'cv-files': true,
+      },
+      bucket: process.env.S3_BUCKET || 'media',
+      config: {
+        endpoint: process.env.S3_ENDPOINT,
+        region: 'auto',
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        forcePathStyle: true,
+      },
+    }),
   ],
 })
