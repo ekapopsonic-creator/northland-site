@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { jsxConverters } from '@/components/blocks/richTextConverters'
 import { sectionStyle, headingStyle, styleFor, gapStyle, type Appearance } from '@/blocks/shared'
 import { mediaUrl } from '@/lib/labels'
 import { ProjectCard } from '@/components/ProjectCard'
@@ -172,7 +173,7 @@ export function BlockRenderer({
                   {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
                   {block.content ? (
                     <div style={{ lineHeight: 1.9 }}>
-                      <RichText data={block.content} />
+                      <RichText converters={jsxConverters} data={block.content} />
                     </div>
                   ) : null}
                 </div>
@@ -194,7 +195,7 @@ export function BlockRenderer({
                     <div style={{ direction: 'ltr' }}>
                       {block.eyebrow ? <p className="section-tag" style={styleFor(block, 'eyebrow')}>{block.eyebrow}</p> : null}
                       {block.heading ? <h2 className="section-title" style={headingStyle(block)}>{block.heading}</h2> : null}
-                      {block.content ? <RichText data={block.content} /> : null}
+                      {block.content ? <RichText converters={jsxConverters} data={block.content} /> : null}
                       <Buttons buttons={block.buttons} />
                     </div>
                   </div>
@@ -306,7 +307,7 @@ export function BlockRenderer({
                               {col.colHeading}
                             </h3>
                           ) : null}
-                          {col.content ? <RichText data={col.content} /> : null}
+                          {col.content ? <RichText converters={jsxConverters} data={col.content} /> : null}
                         </div>
                       )
                     })}

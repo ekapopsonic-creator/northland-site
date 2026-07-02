@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { jsxConverters } from '@/components/blocks/richTextConverters'
 import { getPostBySlug } from '@/lib/queries'
 import { postCategoryLabels, mediaUrl } from '@/lib/labels'
 
@@ -52,7 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {post.content ? (
             <div style={{ lineHeight: 1.9, fontSize: '1.05rem' }}>
-              <RichText data={post.content} />
+              <RichText converters={jsxConverters} data={post.content} />
             </div>
           ) : null}
 

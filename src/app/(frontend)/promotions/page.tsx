@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { PageSections } from '@/components/blocks/PageSections'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { jsxConverters } from '@/components/blocks/richTextConverters'
 import { getActivePromotions } from '@/lib/queries'
 import { mediaUrl } from '@/lib/labels'
 
@@ -54,7 +55,7 @@ export default async function PromotionsPage() {
                       <h3 className="project-card-name">{promo.title}</h3>
                       {promo.description ? (
                         <div style={{ color: 'var(--ink-soft)', fontSize: '0.95rem', marginBottom: '1rem' }}>
-                          <RichText data={promo.description} />
+                          <RichText converters={jsxConverters} data={promo.description} />
                         </div>
                       ) : null}
                       <div className="project-card-meta">

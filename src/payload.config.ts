@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
-import { lexicalEditor, TextStateFeature } from '@payloadcms/richtext-lexical'
-import { richTextFonts, richTextWeights, richTextColors, richTextSizes, richTextHighlights } from './lib/fonts'
+import { lexicalEditor, FixedToolbarFeature } from '@payloadcms/richtext-lexical'
+import { RichStyleFeature } from './features/richStyleFeature'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { en } from '@payloadcms/translations/languages/en'
@@ -63,15 +63,9 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
-      TextStateFeature({
-        state: {
-          color: richTextColors,
-          highlight: richTextHighlights,
-          font: richTextFonts,
-          size: richTextSizes,
-          weight: richTextWeights,
-        },
-      }),
+      // toolbar แบบ word processor (ปักด้านบน) + ปุ่ม custom ฟอนต์/ขนาด/สี/ไฮไลต์/ล้าง/ตัวพิมพ์
+      FixedToolbarFeature(),
+      RichStyleFeature(),
     ],
   }),
   i18n: {

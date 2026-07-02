@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { jsxConverters } from '@/components/blocks/richTextConverters'
 import { getProjectBySlug } from '@/lib/queries'
 import { categoryLabels, statusLabels, mediaUrl } from '@/lib/labels'
 
@@ -107,7 +108,7 @@ export default async function ProjectDetailPage({
 
               {project.description ? (
                 <div style={{ marginBottom: '2rem', lineHeight: 1.8 }}>
-                  <RichText data={project.description} />
+                  <RichText converters={jsxConverters} data={project.description} />
                 </div>
               ) : null}
 
