@@ -10,12 +10,21 @@
 import * as React from 'react'
 import { createClientFeature } from '@payloadcms/richtext-lexical/client'
 import type { LexicalEditor } from '@payloadcms/richtext-lexical/lexical'
-import { $getSelection, $isRangeSelection } from '@payloadcms/richtext-lexical/lexical'
+import {
+  $getSelection,
+  $isRangeSelection,
+  $getRoot,
+  $createParagraphNode,
+  $isElementNode,
+  UNDO_COMMAND,
+  REDO_COMMAND,
+} from '@payloadcms/richtext-lexical/lexical'
 import {
   $patchStyleText,
   $getSelectionStyleValueForProperty,
   $forEachSelectedTextNode,
 } from '@payloadcms/richtext-lexical/lexical/selection'
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@payloadcms/richtext-lexical/lexical/html'
 import { ALL_FONTS } from '../lib/fonts'
 
 // ---- ตัวเลือก ----
@@ -237,6 +246,19 @@ select.rt-ctrl{appearance:auto}
 .rt-swatch-none{background:#fff;color:#888}
 .rt-btn{padding:0 9px;font-weight:700;justify-content:center}
 .rt-btn:hover,.rt-swatch:hover{filter:brightness(.95)}
+.rt-primary{background:var(--theme-success-500,#1e8e3e);color:#fff;border-color:transparent}
+/* เต็มจอ */
+.rt-fullscreen{position:fixed !important;inset:0 !important;z-index:9999 !important;margin:0 !important;
+  padding:12px !important;background:var(--theme-bg,#fff) !important;max-width:none !important;overflow:auto !important}
+/* modal ซอร์สโค้ด */
+.rt-modal-bg{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.rt-modal{width:min(760px,92vw);max-height:82vh;display:flex;flex-direction:column;gap:10px;
+  background:var(--theme-bg,#fff);color:var(--theme-elevation-800);border-radius:8px;padding:16px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.rt-modal-h{font-weight:700;font-size:14px}
+.rt-modal-ta{flex:1;min-height:300px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5;
+  padding:10px;border:1px solid var(--theme-elevation-150);border-radius:6px;background:var(--theme-input-bg);color:var(--theme-elevation-800);resize:vertical}
+.rt-modal-f{display:flex;justify-content:flex-end;gap:8px}
+.rt-modal-f .rt-btn{height:32px;padding:0 14px}
 `
 const StyleInjector: React.FC = () => (
   <style dangerouslySetInnerHTML={{ __html: TOOLBAR_CSS }} />
@@ -268,6 +290,135 @@ const PrintControl: React.FC<CtrlProps> = ({ editor }) => (
     🖨
   </button>
 )
+
+// ===== Undo / Redo =====
+const UndoControl: React.FC<CtrlProps> = ({ editor }) => (
+  <button
+    type="button"
+    className="rt-ctrl rt-btn"
+    title="ย้อนกลับ (Undo)"
+    onMouseDown={(ev) => {
+      ev.preventDefault()
+      editor.dispatchCommand(UNDO_COMMAND, undefined)
+    }}
+  >
+    ↶
+  </button>
+)
+const RedoControl: React.FC<CtrlProps> = ({ editor }) => (
+  <button
+    type="button"
+    className="rt-ctrl rt-btn"
+    title="ทำซ้ำ (Redo)"
+    onMouseDown={(ev) => {
+      ev.preventDefault()
+      editor.dispatchCommand(REDO_COMMAND, undefined)
+    }}
+  >
+    ↷
+  </button>
+)
+
+// ===== เต็มจอ (Fullscreen) — ขยายกล่อง editor เต็มหน้าจอ =====
+const FullscreenControl: React.FC<CtrlProps> = ({ editor }) => (
+  <button
+    type="button"
+    className="rt-ctrl rt-btn"
+    title="เต็มจอ"
+    onMouseDown={(ev) => {
+      ev.preventDefault()
+      const root = editor.getRootElement()
+      const box =
+        (root?.closest('[class*="rich-text-lexical"]') as HTMLElement | null) ||
+        (root?.closest('.field-type') as HTMLElement | null) ||
+        (root?.parentElement as HTMLElement | null)
+      if (box) box.classList.toggle('rt-fullscreen')
+    }}
+  >
+    ⛶
+  </button>
+)
+
+// ===== Source code (HTML) — ดู/แก้ HTML แล้วนำกลับเข้า editor =====
+const SourceControl: React.FC<CtrlProps> = ({ editor }) => {
+  const [open, setOpen] = React.useState(false)
+  const [html, setHtml] = React.useState('')
+  const openIt = () => {
+    let out = ''
+    editor.getEditorState().read(() => {
+      out = $generateHtmlFromNodes(editor, null)
+    })
+    setHtml(out)
+    setOpen(true)
+  }
+  const apply = () => {
+    editor.update(() => {
+      const dom = new DOMParser().parseFromString(html, 'text/html')
+      const nodes = $generateNodesFromDOM(editor, dom)
+      const root = $getRoot()
+      root.clear()
+      for (const n of nodes) {
+        if ($isElementNode(n)) root.append(n)
+        else {
+          const p = $createParagraphNode()
+          p.append(n)
+          root.append(p)
+        }
+      }
+    })
+    setOpen(false)
+  }
+  return (
+    <>
+      <button
+        type="button"
+        className="rt-ctrl rt-btn"
+        title="ซอร์สโค้ด HTML"
+        onMouseDown={(ev) => {
+          ev.preventDefault()
+          openIt()
+        }}
+      >
+        {'</>'}
+      </button>
+      {open ? (
+        <div className="rt-modal-bg" onMouseDown={() => setOpen(false)}>
+          <div className="rt-modal" onMouseDown={(e) => e.stopPropagation()}>
+            <div className="rt-modal-h">ซอร์สโค้ด HTML</div>
+            <textarea
+              className="rt-modal-ta"
+              value={html}
+              spellCheck={false}
+              onChange={(e) => setHtml(e.target.value)}
+            />
+            <div className="rt-modal-f">
+              <button
+                type="button"
+                className="rt-ctrl rt-btn"
+                onMouseDown={(e) => {
+                  e.preventDefault()
+                  setOpen(false)
+                }}
+              >
+                ยกเลิก
+              </button>
+              <button
+                type="button"
+                className="rt-ctrl rt-btn rt-primary"
+                onMouseDown={(e) => {
+                  e.preventDefault()
+                  apply()
+                }}
+              >
+                ใช้ HTML นี้
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  )
+}
 
 // wrapper: item.Component ได้ props { editor } จาก Payload
 const wrap =
@@ -305,6 +456,17 @@ export const RichStyleFeatureClient = createClientFeature(() => ({
           { key: 'rt-clear', Component: wrap(ClearControl) },
           { key: 'rt-case', Component: wrap(CaseControl) },
           { key: 'rt-print', Component: wrap(PrintControl) },
+        ],
+      },
+      {
+        type: 'buttons' as const,
+        key: 'richStyleTools',
+        order: 40,
+        items: [
+          { key: 'rt-source', Component: wrap(SourceControl) },
+          { key: 'rt-fullscreen', Component: wrap(FullscreenControl) },
+          { key: 'rt-undo', Component: wrap(UndoControl) },
+          { key: 'rt-redo', Component: wrap(RedoControl) },
         ],
       },
     ],
