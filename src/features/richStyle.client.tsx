@@ -242,6 +242,33 @@ const StyleInjector: React.FC = () => (
   <style dangerouslySetInnerHTML={{ __html: TOOLBAR_CSS }} />
 )
 
+// ===== พิมพ์ (Print) — พิมพ์เฉพาะเนื้อหาในกล่อง =====
+const PrintControl: React.FC<CtrlProps> = ({ editor }) => (
+  <button
+    type="button"
+    className="rt-ctrl rt-btn"
+    title="พิมพ์เนื้อหา"
+    onMouseDown={(ev) => {
+      ev.preventDefault()
+      const root = editor.getRootElement()
+      const html = root ? root.innerHTML : ''
+      const w = window.open('', '_blank', 'width=820,height=640')
+      if (!w) return
+      w.document.write(
+        `<!doctype html><html><head><meta charset="utf-8"><title>พิมพ์เนื้อหา</title>` +
+          `<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">` +
+          `<style>body{font-family:"Kanit",sans-serif;padding:36px;line-height:1.7;color:#111}img{max-width:100%}</style>` +
+          `</head><body>${html}</body></html>`,
+      )
+      w.document.close()
+      w.focus()
+      w.setTimeout(() => w.print(), 300)
+    }}
+  >
+    🖨
+  </button>
+)
+
 // wrapper: item.Component ได้ props { editor } จาก Payload
 const wrap =
   (C: React.FC<CtrlProps>) =>
@@ -277,6 +304,7 @@ export const RichStyleFeatureClient = createClientFeature(() => ({
         items: [
           { key: 'rt-clear', Component: wrap(ClearControl) },
           { key: 'rt-case', Component: wrap(CaseControl) },
+          { key: 'rt-print', Component: wrap(PrintControl) },
         ],
       },
     ],
